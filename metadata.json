@@ -1,0 +1,6 @@
+{
+  "name": "Shala Sahayak",
+  "description": "Comprehensive PWA for Rajasthan Education Department personnel with automated tools, increment orders, timetable generator, board exam utilities, and local data management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

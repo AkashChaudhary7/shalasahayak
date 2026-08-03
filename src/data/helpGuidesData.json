@@ -1,0 +1,431 @@
+[
+  {
+    "id": "peeo-orders-guide",
+    "toolId": "peeo-orders",
+    "categoryKey": "peeo",
+    "categoryHi": "पीईईओ व संस्थाप्रधान",
+    "categoryEn": "PEEO & Admin",
+    "titleHi": "10 सेकंड में आधिकारिक पीईईओ आदेश व कार्यमुक्ति पत्र जनरेट करने की मार्गदर्शिका",
+    "titleEn": "How to Generate Official PEEO Orders & Relieving Letters in 10 Seconds",
+    "readTime": "3 मिनट",
+    "updatedDate": "2026-08-01",
+    "iconName": "Building2",
+    "summaryHi": "पीईईओ कार्यालय के प्रशासनिक ड्यूटी आदेश, रिलीविंग ऑर्डर एवं सत्यापन प्रपत्र मुहर सहित तुरंत तैयार करने के विस्तृत चरण।",
+    "summaryEn": "Complete step-by-step documentation for PEEO duty orders, teacher relieving letters, and verification certificates.",
+    "overviewHi": "प्रारम्भिक एवं माध्यमिक शिक्षा विभाग राजस्थान के अंतर्गत पीईईओ/यूसीईईओ कार्यालयों द्वारा दैनिक प्रशासनिक आदेश, चुनाव व परीक्षा ड्यूटी रिलीविंग पत्र एवं सत्यापन प्रमाण पत्र जारी किए जाते हैं।",
+    "overviewEn": "PEEO and UCEEO office administration guidelines for generating duty letters and relieving certificates in Rajasthan schools.",
+    "prerequisitesHi": [
+      "पीईईओ विद्यालय का नाम व एनआईसी कोड दर्ज होना आवश्यक है",
+      "कर्मचारी का नाम, पदनाम एवं आदेश जावक क्रमांक होना अनिवार्य है"
+    ],
+    "prerequisitesEn": [
+      "PEEO School Name & NIC Code saved in settings",
+      "Teacher name, designation, and dispatch number"
+    ],
+    "keyBenefitsHi": [
+      "स्वचालित पीईईओ मुहर व हस्ताक्षर प्रारूप",
+      "100% सटीक जावक क्रमांक प्रविष्टि",
+      "एक-क्लिक में पीडीएफ व प्रिंट सुविधा"
+    ],
+    "keyBenefitsEn": [
+      "Automated PEEO official seal & sign layout",
+      "100% accurate dispatch register tracking",
+      "One-click PDF export & direct printing"
+    ],
+    "steps": [
+      {
+        "stepNum": 1,
+        "titleHi": "प्रशासनिक आदेश जनरेटर मॉड्यूल खोलें",
+        "titleEn": "Open PEEO Orders Module",
+        "descriptionHi": "पीईईओ / संस्थाप्रधान टैब से 'प्रशासनिक आदेश जनरेटर' का चयन करें या सर्च बार में आदेश खोजें।",
+        "descriptionEn": "Select 'PEEO Orders' from PEEO tab or search 'Orders' in the quick search bar.",
+        "tipHi": "विद्यालय विवरण ऑटो-फ़िल करने हेतु प्रोफाइल सेटिंग्स पहले जांच लें।",
+        "tipEn": "Ensure profile settings are filled to auto-populate school header."
+      },
+      {
+        "stepNum": 2,
+        "titleHi": "आदेश प्रारूप एवं कर्मचारी विवरण चुनें",
+        "titleEn": "Select Order Template & Employee Details",
+        "descriptionHi": "ड्यूटी आदेश, कार्यमुक्ति पत्र (Relieving Order) या सत्यापन पत्र में से वांछित प्रारूप का चयन करें।",
+        "descriptionEn": "Choose between Duty Order, Relieving Letter, or Verification Certificate template.",
+        "tipHi": "पूर्व से दर्ज शिक्षकों की सूची से एक क्लिक में नाम चुनें।",
+        "tipEn": "Pick teacher name from saved teachers list for auto-fill."
+      },
+      {
+        "stepNum": 3,
+        "titleHi": "जावक क्रमांक व तिथि दर्ज कर पूर्वावलोकन करें",
+        "titleEn": "Input Dispatch Number & Preview PDF",
+        "descriptionHi": "कार्यालय का जावक क्रमांक, आदेश दिनांक दर्ज करें और 'आदेश तैयार करें' बटन दबाएं। तैयार पत्र को सीधे प्रिंट या पीडीएफ डाउनलोड करें।",
+        "descriptionEn": "Enter dispatch number, order date, and click Generate. Print directly or download official PDF.",
+        "tipHi": "प्रिंट हेतु A4 साइज एवं नार्मल मार्जिन का चयन करें।",
+        "tipEn": "Use A4 size paper layout with normal margins for clean printouts."
+      }
+    ]
+  },
+  {
+    "id": "shivira-guide",
+    "toolId": "shivira",
+    "categoryKey": "general",
+    "categoryHi": "अकादमिक पंचांग",
+    "categoryEn": "Academic Calendar",
+    "titleHi": "शिविरा अकादमिक पंचांग एवं अवकाश तालिका उपयोग मार्गदर्शिका",
+    "titleEn": "Shivira Academic Calendar & Holiday Directory User Guide",
+    "readTime": "2 मिनट",
+    "updatedDate": "2026-08-01",
+    "iconName": "Calendar",
+    "summaryHi": "मासिक शैक्षणिक गतिविधियां, परीक्षा तिथियां, सार्वजनिक व ऐच्छिक अवकाश एवं शिविरा नियमों की पूर्ण जानकारी।",
+    "summaryEn": "Complete directory of monthly academic timelines, exam dates, gazetted holidays, and Shivira rules.",
+    "overviewHi": "राजस्थान माध्यमिक शिक्षा बोर्ड अजमेर एवं प्रारम्भिक शिक्षा निदेशालय बीकानेर द्वारा जारी सत्र 2026-27 के शिविरा पंचांग अनुसार समस्त शैक्षणिक गतिविधियां संचालित की जाती हैं।",
+    "overviewEn": "Official Shivira calendar directive guidelines published by Rajasthan BSER Ajmer and Elementary Education Directorate Bikaner.",
+    "prerequisitesHi": [
+      "सर्विस वर्कर डेटा सिंक चालू होना चाहिए"
+    ],
+    "prerequisitesEn": [
+      "Active Service Worker offline cache enabled"
+    ],
+    "keyBenefitsHi": [
+      "ऑफलाइन मोड में पूर्ण शिविरा कैलेंडर उपलब्ध",
+      "माहवार परीक्षा व उत्सव तिथियों की त्वरित खोज",
+      "ऐच्छिक एवं स्थानीय कलेक्टर अवकाश सूची"
+    ],
+    "keyBenefitsEn": [
+      "Fully offline functional Shivira directory",
+      "Month-by-month exam & cultural event highlights",
+      "Collector & restricted holiday breakdown"
+    ],
+    "steps": [
+      {
+        "stepNum": 1,
+        "titleHi": "माह एवं गतिविधि फ़िल्टर चुनें",
+        "titleEn": "Select Month & Event Filter",
+        "descriptionHi": "जुलाई से जून तक किसी भी माह के टैब पर क्लिक करें अथवा 'अर्धवार्षिक परीक्षा' या 'अवकाश' खोजें।",
+        "descriptionEn": "Click on any month tab (July to June) or search 'Half Yearly Exam' / 'Holidays'.",
+        "tipHi": "ऐच्छिक अवकाश पर क्लिक कर नियम जान सकते हैं।",
+        "tipEn": "Click restricted holiday items to read BSER leave rules."
+      },
+      {
+        "stepNum": 2,
+        "titleHi": "ऑफलाइन संदर्भ हेतु पृष्ठ सुरक्षित रखें",
+        "titleEn": "Save for Offline Reference",
+        "descriptionHi": "सर्विस वर्कर स्वचालित रूप से पंचांग विवरण को आपके डिवाइस पर सहेजता है ताकि इंटरनेट के बिना भी देखा जा सके।",
+        "descriptionEn": "Service Worker automatically caches Shivira entries on your device for offline school usage.",
+        "tipHi": "इंटरनेट न होने पर भी शिविरा बिना रुकावट खुलता है।",
+        "tipEn": "Shivira opens seamlessly even without active internet connectivity."
+      }
+    ]
+  },
+  {
+    "id": "mdm-guide",
+    "toolId": "mdm",
+    "categoryKey": "incharge",
+    "categoryHi": "प्रभारी दायित्व",
+    "categoryEn": "Incharge Modules",
+    "titleHi": "मिड-डे मील व बाल गोपाल दुग्ध ऑटो-कैलकुलेटर एवं कुकिंग कॉस्ट गाइड",
+    "titleEn": "MDM Grain, Milk Powder & Cooking Cost Auto-Calculator Guide",
+    "readTime": "4 मिनट",
+    "updatedDate": "2026-08-01",
+    "iconName": "Utensils",
+    "summaryHi": "प्राथमिक एवं उच्च प्राथमिक वर्ग हेतु गेहूं, चावल, दुग्ध पाउडर मात्रा एवं कुकिंग कॉस्ट की स्वतः गणना।",
+    "summaryEn": "Automated daily calculation of wheat, rice, milk powder requirements and conversion cost breakdown.",
+    "overviewHi": "मिड-डे मील योजना (MDM) एवं मुख्यमंत्री बाल गोपाल योजना के अंतर्गत विद्यालयों में दैनिक खाद्यान्न खपत एवं कुकिंग कॉस्ट का सही हिसाब रखना आवश्यक है।",
+    "overviewEn": "Mid-Day Meal and Bal Gopal Milk distribution accounting norms for Primary (1-5) and Upper Primary (6-8) classes.",
+    "prerequisitesHi": [
+      "कक्षावार छात्र उपस्थिति संख्या"
+    ],
+    "prerequisitesEn": [
+      "Classwise student attendance numbers"
+    ],
+    "keyBenefitsHi": [
+      "गेहूं (100g/150g) व दुग्ध पाउडर (15g/20g) ऑटो गणना",
+      "नवीनतम परिवर्तन लागत (Cooking Cost) हिसाब",
+      "मासिक रजिस्टर हेतु एक्सेल/पीडीएफ रिपोर्ट"
+    ],
+    "keyBenefitsEn": [
+      "Automated grain & milk powder exact dosage",
+      "Updated per-student cooking conversion cost",
+      "Export monthly registers to Excel or PDF"
+    ],
+    "steps": [
+      {
+        "stepNum": 1,
+        "titleHi": "उपस्थित छात्र संख्या दर्ज करें",
+        "titleEn": "Enter Present Student Count",
+        "descriptionHi": "प्राथमिक (1-5) एवं उच्च प्राथमिक (6-8) वर्ग में आज उपस्थित छात्रों की संख्या दर्ज करें।",
+        "descriptionEn": "Input present student counts for Primary (1-5) and Upper Primary (6-8).",
+        "tipHi": "शाला दर्पण दैनिक उपस्थिति से मिलान कर दर्ज करें।",
+        "tipEn": "Match counts with daily Shala Darpan attendance records."
+      },
+      {
+        "stepNum": 2,
+        "titleHi": "वार अनुसार मेनू एवं दुग्ध वितरण चुनें",
+        "titleEn": "Select Menu & Milk Distribution Day",
+        "descriptionHi": "आज के वार अनुसार गेहूं या चावल मेनू चुनें। बाल गोपाल योजना अनुसार दूध पाउडर मात्रा स्वतः कैलकुलेट हो जाएगी।",
+        "descriptionEn": "Select today's menu (Wheat / Rice). Bal Gopal Milk powder dosage is auto-calculated.",
+        "tipHi": "मासिक कुकिंग कॉस्ट राशि बटन से विवरण एक्सेल में डाउनलोड करें।",
+        "tipEn": "Export monthly cooking cost statement for billing."
+      }
+    ]
+  },
+  {
+    "id": "paymatrix-guide",
+    "toolId": "peeo-paymatrix",
+    "categoryKey": "portals",
+    "categoryHi": "पोर्टल्स व डिजिटल टूल",
+    "categoryEn": "Portals & Digital",
+    "titleHi": "7वां वेतन आयोग पे मैट्रिक्स, एसीपी एवं काल्पनिक वेतन वृद्धि कैलकुलेटर मार्गदर्शिका",
+    "titleEn": "7th Pay Matrix & ACP Fixation Calculator Guide",
+    "readTime": "3 मिनट",
+    "updatedDate": "2026-08-01",
+    "iconName": "Calculator",
+    "summaryHi": "मूल वेतन, पे लेवल L-10 से L-14, डीए, एचआरए एवं काल्पनिक वेतन स्थिरीकरण की सटीक गणना।",
+    "summaryEn": "Calculate basic pay, Pay Band, Level 10-14 increments, DA rates, HRA, and hypothetical pay fixation.",
+    "overviewHi": "राजस्थान राज्य कर्मचारियों हेतु 7वें वेतन आयोग के नियमों अनुसार पे मैट्रिक्स फिक्सेशन, एसीपी (9, 18, 27 वर्ष) एवं वार्षिक वेतन वृद्धि स्थिरीकरण।",
+    "overviewEn": "7th Pay Commission fixation rules and ACP promotion salary jumps for Rajasthan state government employees.",
+    "prerequisitesHi": [
+      "वर्तमान मूल वेतन एवं पे मैट्रिक्स लेवल जानकारी"
+    ],
+    "prerequisitesEn": [
+      "Current Basic Pay & Pay Matrix Level"
+    ],
+    "keyBenefitsHi": [
+      "सकल एवं शुद्ध वेतन (Gross/Net) का स्पष्ट ब्योरा",
+      "जीपीएफ, एनपीएस व एसआई कटौती गणना",
+      "वित्त विभाग की अद्यतन डीए दरें"
+    ],
+    "keyBenefitsEn": [
+      "Gross & Net salary calculation breakdown",
+      "GPF, NPS, SI deduction deductions",
+      "Updated Rajasthan Finance Department DA rates"
+    ],
+    "steps": [
+      {
+        "stepNum": 1,
+        "titleHi": "पे मैट्रिक्स लेवल एवं मूल वेतन चुनें",
+        "titleEn": "Select Pay Level & Basic Pay",
+        "descriptionHi": "अपना पे मैट्रिक्स स्तर (जैसे L-10 तृतीय श्रेणी, L-11 द्वितीय श्रेणी, L-12 व्याख्याता) एवं मूल वेतन चुनें।",
+        "descriptionEn": "Choose Pay Level (L-10 Teacher Gr III, L-11 Gr II, L-12 Lecturer) and current Basic Pay.",
+        "tipHi": "एचआरए हेतु Y-Class (8%) या Z-Class (16%) शहर चुनें।",
+        "tipEn": "Select Y-Class or Z-Class city for accurate HRA rate."
+      },
+      {
+        "stepNum": 2,
+        "titleHi": "वेतन पर्ची विवरण देखें",
+        "titleEn": "View Salary Slip Breakdown",
+        "descriptionHi": "कैलकुलेटर डीए, एचआरए, मेडिकल एवं कुल कटौतियों के बाद बैंक खाते में आने वाली शुद्ध राशि की गणना प्रदर्शित करेगा।",
+        "descriptionEn": "Calculates DA, HRA, Medical allowance, total deductions, and net in-hand salary.",
+        "tipHi": "एसीपी टैब में 9/18/27 वर्ष पूर्ण होने पर नया बेसिक पे देखें।",
+        "tipEn": "Use ACP tab to preview next basic pay on completing 9/18/27 years."
+      }
+    ]
+  },
+  {
+    "id": "krida-shulk-maker-guide",
+    "toolId": "kridaShulk",
+    "categoryKey": "incharge",
+    "categoryHi": "प्रभारी दायित्व",
+    "categoryEn": "Incharge Modules",
+    "titleHi": "क्रीड़ा शुल्क विवरण प्रपत्र मेकर - प्रपत्र अ व ब (Form A & B) जनरेटर मार्गदर्शिका",
+    "titleEn": "Krida Shulk Maker: Form A & B Format Generator & Complete Guide",
+    "readTime": "5 मिनट",
+    "updatedDate": "2026-08-03",
+    "iconName": "Trophy",
+    "summaryHi": "राजस्थान माध्यमिक एवं प्रारम्भिक शिक्षा विभाग हेतु क्रीड़ा शुल्क विवरण प्रपत्र अ एवं प्रपत्र ब की स्वतः गणना, बैंक ड्राफ्ट ब्योरा एवं ए4 पीडीएफ जनरेटर।",
+    "summaryEn": "Official Rajasthan school sports fee Form A & B online generator. Auto-calculates student counts, sports fee rates, bank DD details, and exports clean A4 PDF.",
+    "seoMeta": {
+      "titleTag": "Krida Shulk Maker: Form A & B Format Generator | Shala Sahayak",
+      "metaDescription": "Generate official Rajasthan school Krida Shulk Form A & B online. Auto-calculate sports fee rates, print PDF, & export bank DD statement. Try free now!",
+      "h1Tag": "Krida Shulk Maker & Form A/B Generator: Complete Guide for Rajasthan Schools",
+      "slugUrl": "/krida-shulk-maker-guide",
+      "imageAltText": "Rajasthan Education Department Krida Shulk Form A and B preview with auto-calculated student sports fee totals and bank DD signature block"
+    },
+    "overviewHi": "राजस्थान राज्य के समस्त राजकीय एवं निजी विद्यालयों में प्रारम्भिक एवं माध्यमिक शिक्षा विभाग के नियमानुसार प्रतिवर्ष विद्यार्थियों से क्रीड़ा शुल्क (Sports Fee) एकत्रित कर जिला/ब्लॉक क्रीड़ा कोष (CBEO/DEO) में जमा कराया जाता है। इसके लिए निर्धारित 'प्रपत्र अ' (Form A) एवं 'प्रपत्र ब' (Form B) भरकर चालान अथवा बैंक डिमांड ड्राफ्ट (DD) के साथ प्रस्तुत करना अनिवार्य होता है। शाला सहायक 'क्रीड़ा शुल्क मेकर' टूल से यह प्रक्रिया 1 मिनट में बिना किसी त्रुटि के पूर्ण हो जाती है।",
+    "overviewEn": "In all primary, upper primary, secondary, and senior secondary schools of Rajasthan, student sports fees (Krida Shulk) collected annually must be remitted to the CBEO/DEO Sports Fund along with Form A and Form B. Shala Sahayak Krida Shulk Maker automates student fee calculations, demand draft details, and prints ready-to-submit official formats.",
+    "prerequisitesHi": [
+      "विद्यालय का नाम, एनआईसी कोड एवं सीबीईओ ब्लॉक का नाम",
+      "कक्षा 6 से 12 तक बालकों एवं बालिकाओं की नामांकन संख्या",
+      "क्रीड़ा शुल्क बैंक डिमांड ड्राफ्ट (DD) संख्या, दिनांक एवं बैंक नाम"
+    ],
+    "prerequisitesEn": [
+      "School Name, NIC Code, and CBEO Block",
+      "Classwise Boys and Girls student enrollment count (Classes 6 to 12)",
+      "Sports Fee Demand Draft (DD) Number, Date, and Issuing Bank Name"
+    ],
+    "keyBenefitsHi": [
+      "कक्षावार क्रीड़ा शुल्क दरों की 100% सटीक स्वचालित गणना",
+      "प्रपत्र अ (Form A) एवं प्रपत्र ब (Form B) का एक-क्लिक में निर्माण",
+      "बैंक डीडी विवरण, जमा रसीद एवं सीबीईओ पावती संलग्नक",
+      "बिना किसी सॉफ्टवेयर डाउनलोड के ए4 साइज ऑफिशियल पीडीएफ प्रिंट"
+    ],
+    "keyBenefitsEn": [
+      "100% accurate auto-calculation based on official Rajasthan fee rates",
+      "Simultaneous generation of Form A (Classwise) and Form B (Summary)",
+      "Integrated Bank Demand Draft details and official receipt voucher",
+      "Instant clean A4 PDF print export with official seal & signature blocks"
+    ],
+    "steps": [
+      {
+        "stepNum": 1,
+        "titleHi": "विद्यालय एवं शारीरिक शिक्षक प्रोफाइल प्रविष्टि",
+        "titleEn": "Enter School & PTI / Sports Incharge Profile",
+        "descriptionHi": "क्रीड़ा शुल्क मेकर टूल खोलें। विद्यालय का नाम, शाला दर्पण एनआईसी कोड, सीबीईओ ब्लॉक, एवं शारीरिक शिक्षक/क्रीड़ा प्रभारी का नाम दर्ज करें।",
+        "descriptionEn": "Open the Krida Shulk Maker tool. Enter School Name, Shala Darpan NIC Code, CBEO Block, and Physical Education Teacher (PTI) or Sports Incharge name.",
+        "tipHi": "प्रोफाइल सेटिंग्स में पूर्व से सेव डेटा स्वतः भर जाता है।",
+        "tipEn": "Data pre-saved in Profile Settings will auto-populate automatically.",
+        "screenshotPlaceholder": {
+          "title": "Step 1: School & Sports Incharge Profile Input",
+          "subtitle": "Auto-filled School NIC Code, CBEO Block, and Incharge Details",
+          "badgeText": "1. Profile Input",
+          "theme": "emerald",
+          "previewLines": [
+            "School Name: Govt Sr Sec School Bikaner (NIC: 215480)",
+            "CBEO Block: Bikaner East | District: Bikaner",
+            "Sports Incharge / PTI: Shri Rajesh Kumar Verma (PTI Gr-II)"
+          ]
+        }
+      },
+      {
+        "stepNum": 2,
+        "titleHi": "कक्षावार छात्र-छात्रा नामांकन संख्या दर्ज करें",
+        "titleEn": "Input Classwise Student Enrollment (Boys & Girls)",
+        "descriptionHi": "कक्षा 6 से 8 (उच्च प्राथमिक), कक्षा 9-10 (माध्यमिक) एवं कक्षा 11-12 (उच्च माध्यमिक) में अध्ययनरत बालक एवं बालिकाओं की संख्या दर्ज करें। टूल राजकीय नियमानुसार दर लागू कर स्वतः कुल राशि की गणना कर देगा।",
+        "descriptionEn": "Enter student strength for Boys and Girls in Classes 6-8, 9-10, and 11-12. The calculator automatically applies official state fee rates to compute totals.",
+        "tipHi": "यदि किसी वर्ग में बालक/बालिकाएं शून्य हों तो 0 रहने दें।",
+        "tipEn": "Leave count as 0 for any class or category without enrolled students.",
+        "screenshotPlaceholder": {
+          "title": "Step 2: Enrollment & Automated Sports Fee Breakdown",
+          "subtitle": "Classwise Boys/Girls count with rate per student calculation",
+          "badgeText": "2. Rate Calculation",
+          "theme": "indigo",
+          "previewLines": [
+            "Classes 6-8: Boys 120, Girls 95 (Rate ₹20/- per student)",
+            "Classes 9-10: Boys 85, Girls 70 (Rate ₹40/- per student)",
+            "Classes 11-12: Boys 60, Girls 50 (Rate ₹50/- per student)",
+            "Total Remittance Calculated: ₹15,200/- (In Words: Fifteen Thousand Two Hundred Only)"
+          ]
+        }
+      },
+      {
+        "stepNum": 3,
+        "titleHi": "बैंक डिमांड ड्राफ्ट (DD) एवं प्रपत्र प्रकार चयन",
+        "titleEn": "Enter Bank Demand Draft (DD) & Select Form A/B",
+        "descriptionHi": "क्रीड़ा शुल्क जमा कराने हेतु बनवाए गए बैंक डीडी (Demand Draft) का नंबर, डीडी दिनांक, बैंक का नाम एवं सीबीईओ जमा रसीद/आवक संख्या दर्ज करें। 'प्रपत्र अ', 'प्रपत्र ब' अथवा 'संयुक्त प्रपत्र A+B' का चयन करें।",
+        "descriptionEn": "Input DD Number, Date of Issue, Bank Name, and CBEO Deposit Receipt details. Select Form A (Detailed), Form B (Summary), or Combined Form A+B.",
+        "tipHi": "डीडी हमेशा 'CBEO Sports Fund' अथवा विभाग द्वारा निर्देशित पदनाम के नाम से ही बनवाएं।",
+        "tipEn": "Always draw Demand Draft in favor of 'CBEO Sports Fund' as per district guidelines.",
+        "screenshotPlaceholder": {
+          "title": "Step 3: Bank DD Details & Official Receipt Formatting",
+          "subtitle": "DD No, Date, Bank Branch & Deposit Verification Section",
+          "badgeText": "3. DD Entry",
+          "theme": "amber",
+          "previewLines": [
+            "DD No: 584920 | Date: 12-Aug-2026 | Bank: State Bank of India",
+            "Favouring: Chief Block Education Officer (CBEO) Sports Account",
+            "Selected Output Format: Official Combined Form A & B"
+          ]
+        }
+      },
+      {
+        "stepNum": 4,
+        "titleHi": "पूर्वावलोकन एवं A4 साइज पीडीएफ डाउनलोड/प्रिंट",
+        "titleEn": "Preview Format & Export Official A4 PDF Printout",
+        "descriptionHi": "लाइव पूर्वावलोकन (Live Preview) में प्रपत्र की जांच करें। 'PDF डाउनलोड करें' या 'प्रिंट प्रपत्र' बटन पर क्लिक करके संस्थाप्रधान व क्रीड़ा प्रभारी के मुहर व हस्ताक्षर हेतु प्रिंट निकालें।",
+        "descriptionEn": "Review the live formatted document on-screen. Click 'Download PDF' or 'Print Form' for immediate printing with official signature blocks.",
+        "tipHi": "प्रिंटर सेटिंग्स में Scaling को '100%' अथवा 'Fit to Printable Area' पर रखें।",
+        "tipEn": "Set printer scale to 100% or Fit to Page for optimal single-page A4 printouts.",
+        "screenshotPlaceholder": {
+          "title": "Step 4: Final Clean Official A4 PDF Document",
+          "subtitle": "Ready-to-submit Krida Shulk Statement with Seals & Signatures",
+          "badgeText": "4. Print & Submit",
+          "theme": "emerald",
+          "previewLines": [
+            "Official Header: Rajasthan Education Department Format A & B",
+            "Detailed Summary Table + Bank DD Attachment Voucher",
+            "Signature Block: Physical Teacher & Headmaster / Principal Counter-signature"
+          ]
+        }
+      }
+    ],
+    "contentSections": [
+      {
+        "headingLevel": "h2",
+        "headingHi": "क्रीड़ा शुल्क विवरण प्रपत्र अ और प्रपत्र ब क्या है (What is Krida Shulk Form A & B)?",
+        "headingEn": "What is Krida Shulk Form A & Form B (Overview & Purpose)?",
+        "contentHi": "राजस्थान राज्य के शिक्षा विभाग द्वारा जारी खेलकूद दिशा-निर्देशों के अनुसार, विद्यालयों में अध्ययनरत विद्यार्थियों से निर्धारित दर पर क्रीड़ा शुल्क प्राप्त किया जाता है। इस शुल्क का उपयोग ब्लॉक, जिला एवं राज्य स्तरीय विद्यालयी खेलकूद प्रतियोगिताओं के सफल संचालन, खिलाड़ियों के यात्रा भत्ते, टीए/डीए, खेल सामग्री एवं पुरस्कार वितरण हेतु किया जाता है। जमा की जाने वाली राशि का पूर्ण विवरण प्रस्तुत करने हेतु दो मुख्य प्रपत्र भरे जाते हैं:\n1. प्रपत्र अ (Form A): इसमें कक्षावार छात्र-छात्राओं का विस्तृत नामांकन, प्रति छात्र निर्धारित दर एवं कक्षावार प्राप्त कुल क्रीड़ा शुल्क राशि का ब्योरा होता है।\n2. प्रपत्र ब (Form B): इसमें विद्यालय की कुल जमा राशि, बैंक डिमांड ड्राफ्ट (DD) संख्या, डीडी दिनांक, बैंक का नाम, सीबीईओ कार्यालय रसीद संख्या एवं संस्थाप्रधान के प्रतिहस्ताक्षर का समेकित विवरण होता है।",
+        "contentEn": "As per Rajasthan Education Department guidelines, sports fee (Krida Shulk) collected from students is utilized for organizing Block, District, and State-level school sports tournaments, purchasing equipment, and providing TA/DA to student athletes. To maintain transparency, schools submit two mandatory statements:\n1. Form A (प्रपत्र अ): Classwise breakdown of enrolled boys and girls, applicable per-student fee rates, and total sports fees calculated per class.\n2. Form B (प्रपत्र ब): Consolidated summary showing total amount remitted, Bank Demand Draft (DD) number, DD date, issuing bank, CBEO deposit receipt details, and official headmaster counter-signatures."
+      },
+      {
+        "headingLevel": "h2",
+        "headingHi": "राजस्थान विद्यालय क्रीड़ा शुल्क दरें (Official Rajasthan School Sports Fee Rates 2024-25)",
+        "headingEn": "Official Rajasthan School Sports Fee Rates & Category Breakdown",
+        "contentHi": "शिक्षा विभाग राजस्थान द्वारा निर्धारित अद्यतन क्रीड़ा शुल्क दरें निम्नानुसार हैं:",
+        "contentEn": "The official sports fee rates prescribed by the Education Department of Rajasthan are structured as follows:",
+        "tableData": {
+          "headersHi": ["वर्ग / कक्षा समूह", "स्तर (Category)", "निर्धारित क्रीड़ा शुल्क (प्रति छात्र/वर्ष)", "जमा का माध्यम"],
+          "headersEn": ["Class Category", "Educational Level", "Prescribed Sports Fee (Per Student/Year)", "Remittance Mode"],
+          "rowsHi": [
+            ["कक्षा 6 से 8", "उच्च प्राथमिक (Upper Primary)", "₹20/- प्रति छात्र", "CBEO खेलकूद कोष DD"],
+            ["कक्षा 9 से 10", "माध्यमिक (Secondary)", "₹40/- प्रति छात्र", "CBEO / DEO खेल कोष DD"],
+            ["कक्षा 11 से 12", "उच्च माध्यमिक (Sr. Secondary)", "₹50/- प्रति छात्र", "CBEO / DEO खेल कोष DD"]
+          ],
+          "rowsEn": [
+            ["Classes 6 to 8", "Upper Primary", "₹20/- per student", "CBEO Sports Fund DD"],
+            ["Classes 9 to 10", "Secondary", "₹40/- per student", "CBEO / DEO Sports Fund DD"],
+            ["Classes 11 to 12", "Senior Secondary", "₹50/- per student", "CBEO / DEO Sports Fund DD"]
+          ]
+        }
+      },
+      {
+        "headingLevel": "h2",
+        "headingHi": "प्रपत्र अ एवं प्रपत्र ब में मुख्य अंतर (Difference Between Form A and Form B)",
+        "headingEn": "Comparison: Difference Between Krida Shulk Form A and Form B",
+        "contentHi": "शाला दर्पण एवं ब्लॉक शिक्षा कार्यालयों में जमा कराए जाने वाले दोनों प्रपत्रों के मुख्य अंतर निम्न सारणी में स्पष्ट किए गए हैं:",
+        "contentEn": "Key operational differences between Form A and Form B required for CBEO audit compliance:",
+        "tableData": {
+          "headersHi": ["विशेषता (Feature)", "प्रपत्र अ (Form A)", "प्रपत्र ब (Form B)"],
+          "headersEn": ["Feature", "Form A (Classwise Detail)", "Form B (Consolidated Summary)"],
+          "rowsHi": [
+            ["मुख्य उद्देश्य", "कक्षावार एवं लिंगवार (बालक/बालिका) नामांकन व राशि का विस्तृत विवरण", "कुल जमा राशि, बैंक डीडी ब्योरा व सीबीईओ पावती का समेकित ब्योरा"],
+            ["डेटा प्रविष्टि", "कक्षा 6 से 12 तक बालकों एवं बालिकाओं की अलग-अलग संख्या", "केवल कुल छात्र संख्या एवं कुल देय राशि का योग"],
+            ["बैंक विवरण", "केवल संदर्भ हेतु दर्ज किया जा सकता है", "बैंक डीडी संख्या, दिनांक, बैंक शाखा व राशि दर्ज करना अनिवार्य"],
+            ["संलग्नक", "विद्यालय क्रीड़ा पंजी का प्राथमिक आधार", "डीडी की मूल प्रति एवं सीबीईओ चालान/रसीद के साथ जमा"],
+            ["हस्ताक्षर", "शारीरिक शिक्षक / क्रीड़ा प्रभारी", "शारीरिक शिक्षक + संस्थाप्रधान प्रतिहस्ताक्षर व मुहर"]
+          ],
+          "rowsEn": [
+            ["Primary Purpose", "Detailed classwise and genderwise student count & fee breakdown", "Consolidated remittance summary with Bank DD and receipt details"],
+            ["Data Input", "Individual Boys and Girls count from Class 6 to 12", "Grand totals of students and calculated total fee amount"],
+            ["Bank Details", "Optional reference entry", "Mandatory Bank DD Number, Date, Branch Name, and Amount"],
+            ["Enclosures", "Internal sports register baseline document", "Submitted to CBEO office attached with original Demand Draft"],
+            ["Signatures", "Sports Incharge / Physical Teacher (PTI)", "PTI + Headmaster / Principal Seal & Counter-Signature"]
+          ]
+        }
+      },
+      {
+        "headingLevel": "h2",
+        "headingHi": "बैंक डिमांड ड्राफ्ट (DD) एवं सीबीईओ रसीद प्रविष्टि नियम",
+        "headingEn": "Bank Demand Draft (DD) & CBEO Receipt Entry Rules",
+        "contentHi": "क्रीड़ा शुल्क चालान एवं बैंक ड्राफ्ट तैयार करते समय निम्नलिखित बिंदुओं का ध्यान रखें:\n1. Demand Draft Favour: डीडी मुख्य ब्लॉक शिक्षा अधिकारी (CBEO) के आधिकारिक खेलकूद बैंक खाते (उदा. 'CBEO Sports Fund') के नाम से बनवाया जाना चाहिए।\n2. DD Validity: बैंक ड्राफ्ट की वैधता 3 माह की होती है, अत: टूर्नामेंट सत्र प्रारंभ होने से पूर्व समयबद्ध जमा कराएं।\n3. Office Copy & Receipt: सीबीईओ कार्यालय द्वारा प्राप्त जमा रसीद (Voucher/Receipt No.) को प्रपत्र ब में अंकित कर विद्यालय रिकॉर्ड फाइल में सुरक्षित रखें।\n4. Audit Record: ऑडिट के समय शाला दर्पण नामांकन सूची एवं क्रीड़ा शुल्क प्रपत्र A+B की प्रति का मिलान किया जाता है।",
+        "contentEn": "Key audit and bank guidelines for remitting school sports fees:\n1. DD Favouring Name: Demand Draft must be drawn strictly in favor of 'Chief Block Education Officer (CBEO) Sports Account' or as designated by district authorities.\n2. Validity Window: Demand Drafts are valid for 3 months from issuance; ensure timely submission before tournament schedules begin.\n3. Office Voucher Receipt: Always record the CBEO office acknowledgment number in Form B and retain a duplicate copy for school audit.\n4. Audit Verification: During annual financial audits, Shala Darpan student strength is cross-verified with Krida Shulk Form A and B records."
+      },
+      {
+        "headingLevel": "h2",
+        "headingHi": "क्रीड़ा शुल्क अक्सर पूछे जाने वाले प्रश्न (Krida Shulk FAQs)",
+        "headingEn": "Frequently Asked Questions (Krida Shulk FAQs)",
+        "contentHi": "शाला सहायक क्रीड़ा शुल्क मेकर से संबंधित सामान्य प्रश्न व उत्तर:",
+        "contentEn": "Common queries regarding Krida Shulk Form A and B generation:",
+        "listItemsHi": [
+          "प्रश्न: क्या प्राथमिक विद्यालय (कक्षा 1 से 5) हेतु क्रीड़ा शुल्क देय है?\nउत्तर: नहीं, राजस्थान शिक्षा विभाग नियमों अनुसार केवल कक्षा 6 से 12 तक के विद्यार्थियों हेतु ही क्रीड़ा शुल्क निर्धारित है।",
+          "प्रश्न: क्या बालिकाओं हेतु क्रीड़ा शुल्क में कोई छूट (Exemption) है?\nउत्तर: सामान्यतः क्रीड़ा शुल्क समस्त नामांकित छात्र-छात्राओं हेतु समान दर से लागू होता है जब तक कि विभाग द्वारा कोई विशेष छूट आदेश जारी न हो।",
+          "प्रश्न: क्या क्रीड़ा शुल्क प्रपत्र A व B को ऑनलाइन एडिट या री-प्रिंट किया जा सकता है?\nउत्तर: हाँ, शाला सहायक टूल में आपका डेटा ब्राउज़र में सुरक्षित रहता है। आप कभी भी संशोधित कर नया ए4 पीडीएफ जनरेट कर सकते हैं।",
+          "प्रश्न: क्या टूल का उपयोग करने हेतु किसी लॉगिन या रजिस्ट्रेशन की आवश्यकता है?\nउत्तर: नहीं, शाला सहायक का क्रीड़ा शुल्क मेकर 100% नि:शुल्क, सुरक्षित और बिना लॉगिन के तुरंत उपलब्ध है।"
+        ],
+        "listItemsEn": [
+          "Q: Is sports fee applicable for Primary Schools (Classes 1 to 5)?\nA: No, as per Rajasthan Education Department guidelines, sports fee applies only to students in Classes 6 to 12.",
+          "Q: Are girls exempted from paying sports fees?\nA: Sports fees apply equally to all enrolled students unless a specific department order granting fee relaxation is issued.",
+          "Q: Can I edit or re-print Krida Shulk Form A & B later?\nA: Yes, all data remains safely saved in your browser local storage. You can edit student counts or DD numbers anytime and re-export the PDF.",
+          "Q: Does Krida Shulk Maker require any login or payment?\nA: No, Shala Sahayak Krida Shulk Maker is 100% free, private, offline-ready, and requires no registration or login."
+        ]
+      }
+    ]
+  }
+]
+

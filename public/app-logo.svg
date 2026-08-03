@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <style>
+    .title-text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 900; fill: #1d4ed8; font-size: 34px; letter-spacing: 1px; }
+    .sub-text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 800; fill: #16a34a; font-size: 21px; letter-spacing: 4px; }
+  </style>
+
+  <!-- Person Icon / Head & Arm -->
+  <g filter="url(#shadow)">
+    <!-- Head Circle -->
+    <circle cx="250" cy="72" r="28" fill="url(#blueGrad)" />
+    <!-- Reaching Arm / Curve -->
+    <path d="M 215 115 C 220 95, 275 95, 280 120 C 285 140, 290 148, 305 130 C 290 100, 235 90, 205 125 Z" fill="url(#blueGrad)" />
+    <path d="M 292 120 C 282 138, 260 160, 240 162 C 255 152, 285 125, 292 120 Z" fill="url(#greenGrad)" />
+  </g>
+
+  <!-- 3D Open Book -->
+  <g filter="url(#shadow)">
+    <!-- Outer Blue Spine & Back Cover -->
+    <path d="M 160 145 L 250 170 L 340 145 C 352 142, 360 152, 360 165 L 360 250 C 360 265, 250 285, 250 285 C 250 285, 140 265, 140 250 L 140 165 C 140 152, 148 142, 160 145 Z" fill="url(#blueGrad)" />
+    
+    <!-- Middle Green Cover Trim -->
+    <path d="M 170 140 L 250 162 L 330 140 C 342 137, 350 147, 350 160 L 350 242 C 350 255, 250 273, 250 273 C 250 273, 150 255, 150 242 L 150 160 C 150 147, 158 137, 170 140 Z" fill="url(#greenGrad)" />
+
+    <!-- White Left Page -->
+    <path d="M 180 135 C 215 142, 240 152, 248 156 L 248 250 C 238 247, 210 238, 162 232 C 158 231, 160 220, 160 215 L 160 145 C 160 138, 170 133, 180 135 Z" fill="url(#pageGrad)" stroke="#cbd5e1" stroke-width="2" />
+
+    <!-- Left Page Lines -->
+    <line x1="180" y1="165" x2="230" y2="175" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+    <line x1="180" y1="185" x2="230" y2="195" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+    <line x1="180" y1="205" x2="225" y2="215" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- White Right Page -->
+    <path d="M 320 135 C 285 142, 260 152, 252 156 L 252 250 C 262 247, 290 238, 338 232 C 342 231, 340 220, 340 215 L 340 145 C 340 138, 330 133, 320 135 Z" fill="url(#pageGrad)" stroke="#cbd5e1" stroke-width="2" />
+  </g>
+
+  <!-- 3D Intertwined SS Logo -->
+  <g filter="url(#shadow)">
+    <!-- First 'S' (Blue) -->
+    <path d="M 270 170 C 295 160, 320 175, 310 195 C 300 215, 260 210, 260 235 C 260 260, 310 265, 320 245" fill="none" stroke="url(#blueGrad)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Second 'S' (Green) -->
+    <path d="M 310 170 C 335 160, 360 175, 350 195 C 340 215, 300 210, 300 235 C 300 260, 350 265, 360 245" fill="none" stroke="url(#greenGrad)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Brand Typography -->
+  <g text-anchor="middle">
+    <text x="250" y="345" class="title-text">SHALA SAHAYAK</text>
+    <text x="250" y="380" class="sub-text">SCHOOL ASSISTANT</text>
+  </g>
+</svg>

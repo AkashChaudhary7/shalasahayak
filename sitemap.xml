@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Home, Landing Views & Static Pages -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-core.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+  
+  <!-- PEEO Administration Tools -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-peeo.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Teacher Classroom Tools -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-teacher.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Physical Education (PTI) & Krida Khelkhud Maker Tools -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-pti.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Incharge Schemes & Portals -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-incharge.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Student Section Components -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-student.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Portals, Links & Calculators -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-portals.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+
+  <!-- Help & Educational Guide Blogs -->
+  <sitemap>
+    <loc>https://shalasahayak.in/sitemap-help.xml</loc>
+    <lastmod>2026-08-02</lastmod>
+  </sitemap>
+</sitemapindex>

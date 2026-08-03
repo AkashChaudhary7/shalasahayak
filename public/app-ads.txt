@@ -1,0 +1,4 @@
+# Google AdMob app-ads.txt configuration for Shala Sahayak
+# INSTRUCTIONS: Replace the placeholder "pub-0000000000000000" with your actual Google AdMob Publisher ID
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

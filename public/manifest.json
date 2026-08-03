@@ -1,0 +1,68 @@
+{
+  "short_name": "ShalaSahayak",
+  "name": "Shala Sahayak (शाला सहायक) - Rajasthan Education PWA",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/app-logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
+  "display": "standalone",
+  "orientation": "any",
+  "description": "Smart Digital Toolkit for Rajasthan Education Department personnel (Principals/PEEOs, Teachers, Incharges)",
+  "categories": ["education", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Independence Day Invitation Maker",
+      "short_name": "Independence Day",
+      "description": "Create Swatantrata Diwas invitations instantly",
+      "url": "/#independence-day-invitation-maker",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "School Invitation Maker",
+      "short_name": "Invitations",
+      "description": "Create school and event invitation cards",
+      "url": "/#invitation",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Shivira Academic Calendar",
+      "short_name": "Shivira Calendar",
+      "description": "View monthly academic calendars & official orders",
+      "url": "/#shivira",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Salary Arrears Calculator",
+      "short_name": "Calculator",
+      "description": "Compute Rajasthan Pay Matrix & DA Arrears instantly",
+      "url": "/#calculator",
+      "icons": [{ "src": "/logo.svg", "sizes": "192x192" }]
+    }
+  ]
+}

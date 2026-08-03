@@ -1,0 +1,338 @@
+@import "tailwindcss";
+
+@theme {
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Global App Honeycomb Pattern Background */
+html, body, #root {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  background-image: url('/bg-pattern.svg');
+  background-repeat: repeat;
+  background-size: 56px 96px;
+  background-attachment: scroll;
+}
+
+/* Dark mode subtle background overlay */
+.dark, html.dark, html.dark body, html.dark #root {
+  background-color: #090e1a;
+  background-image: url('/bg-pattern.svg');
+  background-repeat: repeat;
+  background-size: 56px 96px;
+  background-attachment: scroll;
+}
+
+/* Fix fixed attachment background-clipping and performance only on md screen and above */
+@media (min-width: 768px) {
+  html, body, #root,
+  .dark, html.dark, html.dark body, html.dark #root {
+    background-attachment: fixed;
+  }
+}
+
+/* Mobile Fixed Header, Fixed Footer & Webview Layout Optimizations (<768px) */
+@media (max-width: 767px) {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important; /* Prevents whole page rubber-banding */
+    width: 100% !important;
+    max-width: 100% !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Fixed Header positioning on mobile views */
+  header,
+  .app-header,
+  .app-header-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 56px !important;
+    z-index: 1000 !important;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Main scrollable content area between header and bottom navigation */
+  main,
+  .app-main-content {
+    position: fixed !important;
+    top: 56px !important;
+    bottom: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 16px 12px 20px !important;
+  }
+
+  /* Fixed Bottom Navigation */
+  .bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    z-index: 1000 !important;
+  }
+
+  /* Minimized Compact Footer */
+  .app-footer {
+    padding: 6px 12px !important;
+    font-size: 0.7rem !important;
+    text-align: center !important;
+    color: #64748b !important;
+    background: transparent !important;
+    margin-top: 20px !important;
+  }
+}
+
+/* General Webview & Container Responsiveness Enhancements */
+.app-root-container {
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Ensure horizontal scrolling containers work smoothly inside webviews */
+.overflow-x-auto,
+.table-responsive-container,
+.tabs-navigation-container {
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Webview safe area padding utilities */
+.safe-pt {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Responsive Desktop Grid Optimization (>=768px) for DirectoryDashboard */
+@media (min-width: 768px) {
+  .directory-dashboard-grid,
+  .dashboard-cards-container {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+
+  @media (min-width: 1024px) {
+    .directory-dashboard-grid,
+    .dashboard-cards-container {
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+      gap: 1.5rem !important;
+    }
+  }
+
+  .quick-view-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+  }
+}
+
+/* ==========================================================
+   A4 PRINT OPTIMIZATION & NAVIGATION CLEANUP (@media print)
+   ========================================================== */
+@media print {
+  /* Strictly exclude all navigation, headers, footers, banners, modals and interactive controls */
+  header,
+  footer,
+  nav,
+  .no-print,
+  .app-header,
+  .app-header-container,
+  .app-footer,
+  .app-footer-container,
+  .social-header-bar,
+  .top-promo-banner,
+  .pwa-install-banner,
+  .dashboard-navigation,
+  .directory-dashboard-grid,
+  .quick-view-grid,
+  .tabs-navigation,
+  .search-filter-bar,
+  .modal-overlay-backdrop,
+  .no-print-area,
+  button:not(.print-keep),
+  a:not(.print-keep) {
+    display: none !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 6mm 8mm 6mm 8mm;
+  }
+
+  /* Reset mobile fixed positioning & overflow constraints that cause print clipping or loss of responsiveness */
+  html, body, #root, .app-root-container, main, .app-main-content {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+    overflow: visible !important;
+    font-size: 10.5pt !important;
+    line-height: 1.3 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Dedicated Krida Shulk Maker Print Optimization for Single A4 Page Alignment */
+  #kridaShulkPreview,
+  #krida-shulk-print-area {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 15mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    box-sizing: border-box !important;
+  }
+
+  #krida-shulk-print-area table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  #krida-shulk-print-area th,
+  #krida-shulk-print-area td {
+    border: 1px solid #000000 !important;
+    padding: 2.5px 4px !important;
+    font-size: 8.5pt !important;
+    color: #000000 !important;
+  }
+
+  /* Generic document printable area fallback */
+  .printable-content,
+  .print-area,
+  .peeo-order-preview,
+  .official-letterhead,
+  .marksheet-print-container,
+  .official-format-print,
+  .print-document-container {
+    width: 100% !important;
+    max-width: 195mm !important;
+    margin: 0 auto !important;
+    padding: 2mm 4mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th, td {
+    border: 1px solid #000000 !important;
+    padding: 4px 6px !important;
+    font-size: 9pt !important;
+    color: #000000 !important;
+  }
+
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .page-break-after {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #000000 !important;
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-card-entrance {
+  animation: cardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
