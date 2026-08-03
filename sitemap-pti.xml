@@ -4,12 +4,6 @@
   
   <!-- Main PTI & Physical Education Dashboard -->
   <url>
-    <loc>https://shalasahayak.in/teacher-pti</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://shalasahayak.in/#teacher-pti</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,12 +11,6 @@
   </url>
 
   <!-- Krida Shulk (Sports Fee) Calculator & Register Maker -->
-  <url>
-    <loc>https://shalasahayak.in/teacher/pti/kridashulk</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
   <url>
     <loc>https://shalasahayak.in/#teacher-pti-kridaShulk</loc>
     <lastmod>2026-08-02</lastmod>
@@ -32,12 +20,6 @@
 
   <!-- Student Health, Height, Weight & BMI Index Tracker -->
   <url>
-    <loc>https://shalasahayak.in/teacher-pti/healthbmi</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://shalasahayak.in/#teacher-pti-healthBmi</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -46,12 +28,6 @@
 
   <!-- Sports Materials Goods Stock & Audit Register -->
   <url>
-    <loc>https://shalasahayak.in/teacher-pti/sportsstock</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://shalasahayak.in/#teacher-pti-sportsStock</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -59,12 +35,6 @@
   </url>
 
   <!-- Physical Education PT Board & Local Exam Grading -->
-  <url>
-    <loc>https://shalasahayak.in/teacher-pti/ptgrading</loc>
-    <lastmod>2026-08-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
   <url>
     <loc>https://shalasahayak.in/#teacher-pti-ptGrading</loc>
     <lastmod>2026-08-02</lastmod>

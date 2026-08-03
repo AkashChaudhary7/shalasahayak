@@ -23,8 +23,7 @@ const SectionQuickAccess = lazy(() => import('./SectionQuickAccess').then(m => (
 const ShiviraWidget = lazy(() => import('./ShiviraWidget').then(m => ({ default: m.ShiviraWidget })));
 const InvitationMaker = lazy(() => import('./InvitationMaker').then(m => ({ default: m.InvitationMaker })));
 const HelpCenterModule = lazy(() => import('./modules/HelpCenterModule').then(m => ({ default: m.HelpCenterModule })));
-const HelpGuidesWidget = lazy(() => import('./HelpGuidesWidget').then(m => ({ default: m.HelpGuidesWidget })));
-const TeacherResourceHub = lazy(() => import('./TeacherResourceHub').then(m => ({ default: m.TeacherResourceHub })));
+const BlogsView = lazy(() => import('./BlogsView').then(m => ({ default: m.BlogsView })));
 
 const ModuleLoadingFallback: React.FC = () => (
   <div className="p-8 my-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex flex-col items-center justify-center space-y-3 animate-pulse">
@@ -101,8 +100,6 @@ interface DirectoryDashboardProps {
   onOpenSettings: () => void;
   onOpenFeedback: () => void;
   onNavigate?: (type: 'dashboard' | 'peeo' | 'teacher' | 'incharge' | 'quick' | 'shivira' | 'mdm' | 'exam' | 'work-incharge', subTab?: string | null) => void;
-  onNavChange?: (nav: any) => void;
-  onRegisterController?: (controller: { updateNav: (newNav: any) => void; goBack: () => void; goHome: () => void; }) => void;
 }
 
 type NavLocation = 
@@ -117,6 +114,7 @@ type NavLocation =
   | { type: 'invitation'; template?: 'independence' | 'republic' | 'ptm' | 'annual' | 'admission' | 'sports' }
   | { type: 'help'; blogId?: string }
   | { type: 'hub' }
+  | { type: 'blogs'; subtab?: 'guides' | 'hub' | 'videos'; blogId?: string }
   | { type: 'legal'; subtab?: 'privacy' | 'terms' | 'disclaimer' }
   | { type: 'about-us' }
   | { type: 'contact-us' };
@@ -271,30 +269,17 @@ const DEFAULT_DASHBOARD_CARDS: DashboardCardConfig[] = [
     keywords: ['calculator', 'कैलकुलेटर', 'salary', 'वेतन', 'pay matrix', '7th pay', 'da', 'hra']
   },
   {
-    id: 'help',
-    type: 'help',
+    id: 'blogs',
+    type: 'help', // Keep as 'help' or any custom type so layout works correctly
     icon: 'book',
     bgTint: 'bg-emerald-50 dark:bg-emerald-950/40',
-    labelHi: 'सहायता ब्लॉग',
-    labelEn: 'Help Guides',
-    ariaHi: 'सहायता एवं उपयोग निर्देश',
-    ariaEn: 'Help and Educational Guides',
-    descHi: 'पोर्टल उपयोग मार्गदर्शिका एवं प्रश्नोत्तर',
-    descEn: 'User guides, FAQs, and portal instructions',
-    keywords: ['help', 'सहायता', 'guides', 'मार्गदर्शिका', 'blog', 'faq']
-  },
-  {
-    id: 'resource-hub',
-    type: 'action',
-    icon: 'book',
-    bgTint: 'bg-teal-50 dark:bg-teal-950/40',
-    labelHi: 'मास्टर पिलर हब',
-    labelEn: 'Resource Hub',
-    ariaHi: 'राजस्थान शिक्षा विभाग मास्टर पिलर गाइड हब',
-    ariaEn: 'Rajasthan Education Master Resource Hub',
-    descHi: 'क्रीड़ा शुल्क, वेतन मैट्रिक्स, एमडीएम एवं शाला दर्पण मास्टर गाइड',
-    descEn: 'Master pillar guide for Krida Shulk, Pay Matrix & MDM calculators',
-    keywords: ['hub', 'pillar', 'guide', 'resource', 'क्रीड़ा', 'पे मैट्रिक्स', 'resource-hub']
+    labelHi: 'ब्लॉग व रिसोर्स हब',
+    labelEn: 'Blogs & Resources',
+    ariaHi: 'मार्गदर्शिका ब्लॉग, मास्टर पिलर हब एवं वीडियो लाइब्रेरी',
+    ariaEn: 'Help Guides, Master Resource Hub, and Video Tutorials',
+    descHi: 'शाला दर्पण प्रविष्टि, क्रीड़ा शुल्क, वेतन मैट्रिक्स गाइड व वीडियो',
+    descEn: 'Shala Darpan, sports fee, pay matrix guides and training videos',
+    keywords: ['blogs', 'help', 'resource-hub', 'guides', 'videos', 'ब्लॉग', 'सहायता', 'वीडियो', 'यूट्यूब', 'youtube', 'hub', 'pillar']
   },
   {
     id: 'share',
@@ -388,31 +373,11 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   lang,
   onOpenSettings,
   onOpenFeedback,
-  onNavigate,
-  onNavChange,
-  onRegisterController
+  onNavigate
 }) => {
   const [nav, setNav] = useState<NavLocation>({ type: 'home' });
   const [copiedLink, setCopiedLink] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  // Notify parent of nav changes
-  useEffect(() => {
-    if (onNavChange) {
-      onNavChange(nav);
-    }
-  }, [nav, onNavChange]);
-
-  // Register Controller with Parent (Header can trigger Back/Home/Navigation changes)
-  useEffect(() => {
-    if (onRegisterController) {
-      onRegisterController({
-        updateNav,
-        goBack,
-        goHome: () => updateNav({ type: 'home' })
-      });
-    }
-  }, [onRegisterController, nav]);
 
   // Simulated professional database state / API data hydration check
   useEffect(() => {
@@ -491,6 +456,11 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         path = '/invitation/independence';
       } else {
         path = '/invitation';
+      }
+    } else if (newNav.type === 'blogs') {
+      path = '/blogs';
+      if (newNav.subtab) {
+        path = `/blogs/${newNav.subtab}`;
       }
     } else if (newNav.type === 'legal') {
       if (newNav.subtab === 'privacy') path = '/privacy-policy';
@@ -572,10 +542,14 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         newNav = { type: 'tool', category: 'portals', subtab: 'formats' };
       } else if (hash === 'invitation/independence' || hash === 'independence-day-invitation' || hash === 'independence-day-invitation-maker') {
         newNav = { type: 'invitation', template: 'independence' };
-      } else if (hash === 'help') {
-        newNav = { type: 'help' };
-      } else if (hash === 'resource-hub' || hash === 'hub' || hash === 'teacher-resource-hub') {
-        newNav = { type: 'hub' };
+      } else if (hash === 'blogs' || hash === 'blogs/guides' || hash === 'blogs-guides') {
+        newNav = { type: 'blogs', subtab: 'guides' };
+      } else if (hash === 'blogs/hub' || hash === 'blogs-hub') {
+        newNav = { type: 'blogs', subtab: 'hub' };
+      } else if (hash === 'blogs/videos' || hash === 'blogs-videos') {
+        newNav = { type: 'blogs', subtab: 'videos' };
+      } else if (hash === 'help' || hash === 'resource-hub' || hash === 'hub' || hash === 'teacher-resource-hub') {
+        newNav = { type: 'blogs', subtab: 'hub' };
       } else if (hash === 'legal') {
         newNav = { type: 'legal', subtab: 'privacy' };
       } else if (hash === 'peeo') {
@@ -644,7 +618,9 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   // Card click executor
   const executeCardClick = (card: DashboardCardConfig) => {
     if (card.id === 'resource-hub') {
-      updateNav({ type: 'hub' });
+      updateNav({ type: 'blogs', subtab: 'hub' });
+    } else if (card.id === 'blogs') {
+      updateNav({ type: 'blogs', subtab: 'guides' });
     } else if (card.type === 'shivira') {
       updateNav({ type: 'shivira' });
     } else if (card.type === 'category' && card.categoryId) {
@@ -654,7 +630,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
     } else if (card.type === 'invitation') {
       updateNav({ type: 'invitation' });
     } else if (card.type === 'help') {
-      updateNav({ type: 'help' });
+      updateNav({ type: 'blogs', subtab: 'guides' });
     } else if (card.type === 'action') {
       if (card.action === 'share') handleShare();
       else if (card.action === 'feedback') onOpenFeedback();
@@ -814,7 +790,71 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
     }
   };
 
+  // Clean, Minimalistic Top Navigation Header (No redundant top category scrollable selector)
+  const renderTopHeader = (title: string, _activeCategory?: string) => {
+    return (
+      <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-2.5 px-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm gap-2">
+        
+        {/* Action Navigation Buttons */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            onClick={goBack}
+            className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white transition-all shadow-sm active:scale-95"
+            title={lang === 'hi' ? 'पीछे जाएं' : 'Go Back'}
+            aria-label="Go Back"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
 
+          <button
+            onClick={() => setNav({ type: 'home' })}
+            className="flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all active:scale-95"
+            title={lang === 'hi' ? 'मुख्य होम' : 'Home'}
+            aria-label="Home"
+          >
+            <Home className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Current Page Title / Breadcrumb */}
+        <div className="flex items-center gap-1 min-w-0 truncate">
+          <span className="font-extrabold text-xs sm:text-sm text-slate-800 dark:text-slate-100 truncate">
+            {title}
+          </span>
+        </div>
+
+        {/* Right Action Icons: School Badge & Copy Direct Share Link */}
+        <div className="shrink-0 flex items-center space-x-1.5">
+          <button
+            onClick={() => {
+              const url = window.location.href;
+              navigator.clipboard.writeText(url);
+              setCopiedLink(true);
+              setTimeout(() => setCopiedLink(false), 2500);
+            }}
+            className="flex items-center justify-center gap-1 px-2 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200/50 dark:border-emerald-800/50 transition-all text-[10px] sm:text-xs font-black active:scale-95 cursor-pointer"
+            title={lang === 'hi' ? 'इस पेज का सीधा लिंक कॉपी करें (गूगल सर्च रैंक फ्रेंडली)' : 'Copy direct link to this page (SEO friendly)'}
+          >
+            {copiedLink ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>{lang === 'hi' ? 'कॉपी हुआ!' : 'Copied!'}</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-3.5 h-3.5" />
+                <span>{lang === 'hi' ? 'शेयर लिंक' : 'Copy Link'}</span>
+              </>
+            )}
+          </button>
+
+          <span className="hidden sm:inline-block text-[10px] font-black px-2 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60 truncate max-w-[120px]">
+            {schoolProfile.schoolNameShort || 'शाला सहायक'}
+          </span>
+        </div>
+      </div>
+    );
+  };
 
   // Render Tool Views
   let content: React.ReactNode = null;
@@ -846,6 +886,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   if (nav.type === 'help') {
     content = (
       <div className="space-y-4 animate-fadeIn">
+        {renderTopHeader(lang === 'hi' ? 'सहायता एवं मार्गदर्शिका ब्लॉग' : 'Help & User Guides', 'help')}
         <Suspense fallback={<ModuleLoadingFallback />}>
           <HelpCenterModule
             lang={lang}
@@ -856,8 +897,20 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
       </div>
     );
   } else if (nav.type === 'tool') {
+    const categoryNames: Record<string, string> = {
+      peeo: lang === 'hi' ? 'पीईईओ / प्रधानाचार्य कार्यालय' : 'PEEO / Principal Tools',
+      teacher: lang === 'hi' ? 'शिक्षक एवं अकादमिक मॉड्यूल' : 'Teacher Tools',
+      incharge: lang === 'hi' ? 'कार्य व योजना प्रभारी' : 'Incharge Modules',
+      portals: lang === 'hi' ? 'सरकारी शिक्षा पोर्टल्स' : 'Gov Portals',
+      student: lang === 'hi' ? 'विद्यार्थी पोर्टल' : 'Student App'
+    };
+
     content = (
       <div className="space-y-4 animate-fadeIn">
+        {!(nav.category === 'teacher' && nav.subtab === 'pti' && 'subComponent' in nav && nav.subComponent === 'kridaShulk') && (
+          renderTopHeader(categoryNames[nav.category] || 'Module', nav.category)
+        )}
+
         <Suspense fallback={<ModuleLoadingFallback />}>
           {/* PEEO Tools */}
           {nav.category === 'peeo' && (
@@ -1039,12 +1092,15 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         </Suspense>
       </div>
     );
-  } else if (nav.type === 'hub') {
+  } else if (nav.type === 'blogs' || nav.type === 'help' || nav.type === 'hub') {
+    const initialTab = nav.type === 'help' ? 'guides' : nav.type === 'hub' ? 'hub' : ('subtab' in nav ? nav.subtab : 'guides');
     content = (
       <div className="space-y-4 animate-fadeIn">
+        {renderTopHeader(lang === 'hi' ? 'शाला सहायक ब्लॉग व रिसोर्स' : 'Blogs & Resources', 'blogs')}
         <Suspense fallback={<ModuleLoadingFallback />}>
-          <TeacherResourceHub
+          <BlogsView
             lang={lang}
+            initialTab={initialTab as any}
             onSelectCategory={(catId) => updateNav({ type: 'category', id: catId as any })}
             onSelectTool={(toolId) => {
               const matchedTool = ALL_TOOLS.find(t => t.id === toolId);
@@ -1060,26 +1116,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
                 updateNav({ type: 'invitation' });
               }
             }}
-          />
-        </Suspense>
-      </div>
-    );
-  } else if (nav.type === 'help') {
-    content = (
-      <div className="space-y-4 animate-fadeIn">
-        <Suspense fallback={<ModuleLoadingFallback />}>
-          <HelpGuidesWidget
-            lang={lang}
-            onOpenTool={(toolId) => {
-              const matchedTool = ALL_TOOLS.find(t => t.id === toolId);
-              if (matchedTool) {
-                updateNav({ type: 'tool', category: matchedTool.category, subtab: matchedTool.subtab as any });
-              } else if (toolId === 'shivira') {
-                updateNav({ type: 'shivira' });
-              } else if (toolId === 'invitation') {
-                updateNav({ type: 'invitation' });
-              }
-            }}
+            onBack={goBack}
           />
         </Suspense>
       </div>
@@ -1087,6 +1124,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   } else if (nav.type === 'shivira') {
     content = (
       <div className="space-y-4 animate-fadeIn">
+        {renderTopHeader(lang === 'hi' ? 'शिविरा पंचांग 2026' : 'Shivira Calendar 2026', 'shivira')}
         <Suspense fallback={<ModuleLoadingFallback />}>
           <ShiviraWidget schoolProfile={schoolProfile} lang={lang} />
         </Suspense>
@@ -1104,6 +1142,8 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
 
     content = (
       <div className="space-y-4 animate-fadeIn">
+        {renderTopHeader(catTitles[catId] || 'Category', catId)}
+
         {/* Category Header Banner */}
         <div className="p-4 rounded-3xl bg-gradient-to-r from-emerald-900 to-slate-900 text-white shadow-md">
           <h3 className="font-black text-base text-amber-300">
@@ -1128,7 +1168,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         />
 
         {/* SQUARE ICON CARDS GRID - Category Sub-Options */}
-        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {/* PEEO SUB-OPTIONS */}
           {catId === 'peeo' && (
             <>
@@ -1489,8 +1529,8 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
             </div>
           )}
 
-          {/* 4-COLUMN COMPACT SQUARE ROUNDED CARDS GRID WITH DRAG & DROP */}
-          <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4 dashboard-cards-container directory-dashboard-grid">
+          {/* 3-COLUMN SQUARE ROUNDED CARDS GRID WITH DRAG & DROP */}
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 dashboard-cards-container directory-dashboard-grid">
             {visibleDashboardCards.map((card, index) => {
               const label = lang === 'hi' ? card.labelHi : card.labelEn;
               const ariaLabel = lang === 'hi' ? card.ariaHi : card.ariaEn;

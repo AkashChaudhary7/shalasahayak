@@ -636,20 +636,20 @@ export const ThreeDCard: React.FC<ThreeDCardProps> = ({
       onDrop={onDrop}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
-      className={`w-full aspect-square rounded-[14px] sm:rounded-[20px] p-2 sm:p-[16px_10px] border shadow-[0_4px_12px_rgba(0,0,0,0.03)] sm:shadow-[0_8px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:translate-y-0.5 active:scale-[0.93] active:shadow-inner active:brightness-95 flex flex-col items-center justify-center text-center transition-all duration-150 cursor-grab active:cursor-grabbing group select-none relative animate-card-entrance touch-manipulation ${activeClass} ${className}`}
+      className={`w-full aspect-square rounded-[20px] p-[16px_10px] border shadow-[0_8px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:translate-y-0.5 active:scale-[0.93] active:shadow-inner active:brightness-95 flex flex-col items-center justify-center text-center transition-all duration-150 cursor-grab active:cursor-grabbing group select-none relative animate-card-entrance touch-manipulation ${activeClass} ${className}`}
       style={{ contentVisibility: 'auto', ...animationStyle }}
     >
       <div 
         aria-hidden="true"
-        className={`w-10 h-10 sm:w-[58px] sm:h-[58px] rounded-lg sm:rounded-[16px] ${active ? 'bg-emerald-100 dark:bg-emerald-900/50' : bgTint} flex items-center justify-center group-hover:scale-110 group-active:scale-90 transition-transform duration-150 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),_0_2px_5px_rgba(0,0,0,0.02)] shrink-0`}
+        className={`w-[52px] h-[52px] sm:w-[58px] sm:h-[58px] rounded-[16px] ${active ? 'bg-emerald-100 dark:bg-emerald-900/50' : bgTint} flex items-center justify-center group-hover:scale-110 group-active:scale-90 transition-transform duration-150 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),_0_2px_5px_rgba(0,0,0,0.02)] shrink-0`}
       >
         {typeof icon === 'string' ? (
-          <ThreeDIcon name={icon} size="100%" className="bg-transparent p-1.5 sm:p-0" />
+          <ThreeDIcon name={icon} size={35} className="bg-transparent" />
         ) : (
           icon
         )}
       </div>
-      <span className={`hidden sm:line-clamp-2 text-[0.82rem] font-bold mt-[10px] leading-[1.2] tracking-normal max-w-full px-1 ${active ? 'text-emerald-800 dark:text-emerald-200' : 'text-slate-800 dark:text-slate-100'}`}>
+      <span className={`text-[0.82rem] font-bold mt-[10px] leading-[1.2] tracking-normal line-clamp-2 max-w-full px-1 ${active ? 'text-emerald-800 dark:text-emerald-200' : 'text-slate-800 dark:text-slate-100'}`}>
         {label}
       </span>
       <span className="sr-only">

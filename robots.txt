@@ -10,15 +10,5 @@ Disallow: /node_modules/
 # Host configuration
 Host: https://shalasahayak.in
 
-# Sitemap Index URL (Recommended for all modern search engines)
+# Sitemap Index URL (Unified Flat Sitemap)
 Sitemap: https://shalasahayak.in/sitemap.xml
-
-# Individual Category Sitemaps (For maximum crawler discoverability)
-Sitemap: https://shalasahayak.in/sitemap-core.xml
-Sitemap: https://shalasahayak.in/sitemap-peeo.xml
-Sitemap: https://shalasahayak.in/sitemap-teacher.xml
-Sitemap: https://shalasahayak.in/sitemap-pti.xml
-Sitemap: https://shalasahayak.in/sitemap-incharge.xml
-Sitemap: https://shalasahayak.in/sitemap-student.xml
-Sitemap: https://shalasahayak.in/sitemap-portals.xml
-Sitemap: https://shalasahayak.in/sitemap-help.xml

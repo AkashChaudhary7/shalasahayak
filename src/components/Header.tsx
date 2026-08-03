@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Language, SchoolProfile } from '../types';
 import { t } from '../utils/i18n';
-import { Settings, ArrowLeft, Home, Share2, Check } from 'lucide-react';
+import { Settings } from 'lucide-react';
 
 interface HeaderProps {
   lang: Language;
@@ -10,10 +10,7 @@ interface HeaderProps {
   onToggleDarkMode?: () => void;
   schoolProfile: SchoolProfile;
   onOpenSettings: () => void;
-  currentNav?: any;
-  onGoBack?: () => void;
-  onGoHome?: () => void;
-  pageTitle?: string;
+  onNavigate?: (hash: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -21,125 +18,50 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleLang,
   schoolProfile,
   onOpenSettings,
-  currentNav,
-  onGoBack,
-  onGoHome,
-  pageTitle
+  onNavigate
 }) => {
   const isHi = lang === 'hi';
-  const [copiedLink, setCopiedLink] = useState(false);
 
-  const handleShare = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const url = window.location.href;
-    if (navigator.share) {
-      navigator.share({
-        title: 'शाला सहायक 2026 - Rajasthan School Helper',
-        text: 'PEEO, Teachers, Exam Incharge and Rajasthan School Management Portal App',
-        url: url
-      }).catch(() => {
-        // Fallback to clipboard
-        navigator.clipboard.writeText(url);
-        setCopiedLink(true);
-        setTimeout(() => setCopiedLink(false), 2000);
-      });
+  const navigateTo = (hash: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (onNavigate) {
+      onNavigate(hash);
     } else {
-      navigator.clipboard.writeText(url);
-      setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2000);
+      window.location.hash = hash;
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const isHome = !currentNav || currentNav.type === 'home';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1000] backdrop-blur-md bg-emerald-900/95 text-white border-b border-emerald-700/60 shadow-lg transition-all duration-300 app-header">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 md:h-16 flex items-center justify-between transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 md:py-3.5 flex items-center justify-between transition-all duration-300">
         
-        {/* Left Section: Nav / Back or Brand Logo */}
-        <div className="flex items-center space-x-2 min-w-0">
-          {!isHome ? (
-            <div className="flex items-center space-x-1.5 mr-1 sm:mr-2 shrink-0">
-              <button
-                onClick={onGoBack}
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-800/90 hover:bg-emerald-700 text-white border border-emerald-700 transition-all active:scale-95"
-                title={isHi ? 'पीछे जाएं' : 'Go Back'}
-                aria-label="Go Back"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={onGoHome}
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-800/90 hover:bg-emerald-700 text-white border border-emerald-700 transition-all active:scale-95"
-                title={isHi ? 'मुख्य होम' : 'Home'}
-                aria-label="Home"
-              >
-                <Home className="w-4 h-4" />
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={onGoHome}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white p-1 flex items-center justify-center shadow-md border border-emerald-400/40 shrink-0 overflow-hidden hover:scale-105 transition-transform"
-              title={isHi ? 'मुख्य होम' : 'Home'}
-            >
-              <img src="/logo.svg" alt="Shala Sahayak Logo" className="w-full h-full object-contain" />
-            </button>
-          )}
-
-          {/* Dynamic Titles */}
-          <div className="min-w-0 flex flex-col justify-center">
-            {isHome ? (
-              <>
-                <h1 className="font-extrabold text-xs sm:text-base md:text-lg leading-tight tracking-tight truncate">
-                  {t('appTitle', lang)}
-                </h1>
-                <p className="text-[9px] sm:text-[11px] text-emerald-200/90 font-medium truncate max-w-[140px] xs:max-w-[180px] sm:max-w-[320px]">
-                  {schoolProfile.schoolNameHindi || schoolProfile.schoolName}
-                </p>
-              </>
-            ) : (
-              <>
-                <h1 className="font-extrabold text-xs sm:text-base text-white leading-tight truncate">
-                  {pageTitle}
-                </h1>
-                <p className="text-[9px] sm:text-[11px] text-emerald-200/90 font-medium truncate max-w-[140px] xs:max-w-[180px] sm:max-w-[320px]">
-                  {schoolProfile.schoolNameShort || schoolProfile.schoolNameHindi || 'शाला सहायक'}
-                </p>
-              </>
-            )}
+        {/* Title & Emblem (Clickable to go Home) */}
+        <a
+          href="#home"
+          onClick={(e) => navigateTo('', e)}
+          className="flex items-center space-x-2.5 group cursor-pointer shrink-0"
+        >
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-md border border-emerald-400/40 shrink-0 overflow-hidden group-hover:scale-105 transition-transform">
+            <img src="/logo.svg" alt="Shala Sahayak Logo" className="w-full h-full object-contain" />
           </div>
-        </div>
+          <div>
+            <h1 className="font-extrabold text-sm sm:text-lg md:text-xl leading-tight tracking-tight flex items-center gap-1.5">
+              {t('appTitle', lang)}
+            </h1>
+            <p className="text-[10px] sm:text-xs text-emerald-200/90 font-medium truncate max-w-[150px] xs:max-w-[200px] sm:max-w-[320px]">
+              {schoolProfile.schoolNameHindi || schoolProfile.schoolName}
+            </p>
+          </div>
+        </a>
 
-        {/* Right Section: Actions (Share, Lang, Settings) */}
-        <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
-          
-          {/* Share Link (Only visible when not on home) */}
-          {!isHome && (
-            <button
-              onClick={handleShare}
-              className="flex items-center justify-center gap-1 h-8 px-2 sm:px-2.5 rounded-lg bg-emerald-800/90 hover:bg-emerald-700 text-emerald-200 border border-emerald-700 transition-all text-[10px] sm:text-xs font-bold active:scale-95 cursor-pointer shrink-0"
-              title={isHi ? 'इस पेज का सीधा लिंक शेयर करें' : 'Share direct link to this page'}
-            >
-              {copiedLink ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="hidden sm:inline">{isHi ? 'कॉपी हुआ' : 'Copied'}</span>
-                </>
-              ) : (
-                <>
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">{isHi ? 'शेयर लिंक' : 'Share'}</span>
-                </>
-              )}
-            </button>
-          )}
+        {/* Right Header Action Controls */}
+        <div className="flex items-center space-x-2 shrink-0">
           
           {/* Language Switcher */}
           <button
             onClick={onToggleLang}
-            className="flex items-center justify-center h-8 px-2.5 rounded-lg bg-emerald-800/90 hover:bg-emerald-700 text-xs font-black border border-emerald-700 text-white transition-all shadow-sm cursor-pointer shrink-0"
+            className="flex items-center space-x-1 px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-800/90 hover:bg-emerald-700 text-xs font-black border border-emerald-600/60 text-white transition-all shadow-sm cursor-pointer"
             title="Switch Language"
           >
             <span>{isHi ? 'EN' : 'हिंदी'}</span>
@@ -148,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Settings Modal Toggle */}
           <button
             onClick={onOpenSettings}
-            className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-800/90 hover:bg-emerald-700 text-amber-300 border border-emerald-700 transition-all shadow-sm cursor-pointer shrink-0"
+            className="p-1.5 sm:p-2 rounded-xl bg-emerald-800/90 hover:bg-emerald-700 text-amber-300 border border-emerald-600/60 transition-all shadow-sm cursor-pointer"
             title="School Settings"
           >
             <Settings className="w-4 h-4" />
@@ -158,3 +80,5 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+
+
