@@ -168,6 +168,17 @@ export const ALL_TOOLS: AppTool[] = [
     iconName: 'Award',
     colorBg: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
   },
+  {
+    id: 'incharge-assembly',
+    category: 'incharge',
+    subtab: 'assembly',
+    title: 'Prarthana Prabhari Modules',
+    titleHindi: 'प्रार्थना सभा प्रभारी (Assembly)',
+    description: 'School assembly prayers, daily GK, motivational stories, news and yoga',
+    descriptionHindi: 'दैनिक प्रार्थना, सामान्य ज्ञान प्रश्नोत्तरी, प्रेरक प्रसंग, समाचार सुर्खियां एवं योगाभ्यास',
+    iconName: 'BookOpen',
+    colorBg: 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300'
+  },
 
   // PEEO Tools
   {

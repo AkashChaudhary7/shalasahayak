@@ -98,8 +98,8 @@ export const SocialHeaderBar: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl py-3 px-3.5 text-slate-800 dark:text-slate-200 shadow-sm my-2">
-      <div className="max-w-md md:max-w-5xl lg:max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+    <div className="w-full bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-3 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200 shadow-sm no-print">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         
         {/* Label and Live Status */}
         <div className="flex items-center space-x-2 shrink-0 justify-center">
@@ -119,7 +119,7 @@ export const SocialHeaderBar: React.FC = () => {
               rel="noopener noreferrer"
               title={`${plat.name} (${plat.label})`}
               aria-label={`${plat.name} ${plat.label}`}
-              className="flex items-center justify-center p-2 rounded-2xl bg-slate-100/90 dark:bg-slate-800/90 hover:bg-white dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700/80 hover:border-emerald-500/80 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer shadow-xs shrink-0"
+              className="flex items-center justify-center p-2 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer shadow-xs shrink-0"
             >
               <div className="shrink-0">{plat.iconSvg}</div>
               <span className="sr-only">{plat.name}</span>

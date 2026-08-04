@@ -7,6 +7,7 @@ import { MdmInchargeModule } from './MdmInchargeModule';
 import { ExamInchargeModule } from './ExamInchargeModule';
 import { QrCodeGeneratorModule } from './QrCodeGeneratorModule';
 import { DutyRosterModule } from './DutyRosterModule';
+import { AssemblyInchargeModule } from './AssemblyInchargeModule';
 import { t } from '../../utils/i18n';
 import {
   Sparkles,
@@ -42,7 +43,7 @@ interface WorkInchargeModuleProps {
   mdmLogs: MDMLog[];
   onUpdateMdmLogs: (logs: MDMLog[]) => void;
   lang: Language;
-  initialSubTab?: 'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | null;
+  initialSubTab?: 'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | 'assembly' | null;
   onNavigate?: (type: 'dashboard' | 'peeo' | 'teacher' | 'incharge' | 'quick' | 'shivira' | 'mdm' | 'exam' | 'work-incharge', subTab?: string | null) => void;
   onBack?: () => void;
 }
@@ -57,7 +58,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
   onNavigate,
   onBack
 }) => {
-  const [activeSubTab, setActiveSubTab] = useState<'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | null>(initialSubTab);
+  const [activeSubTab, setActiveSubTab] = useState<'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | 'assembly' | null>(initialSubTab);
 
   React.useEffect(() => {
     setActiveSubTab(initialSubTab);
@@ -274,6 +275,14 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
         descHi: 'प्रार्थना सभा, एमडीएम, परीक्षा, मुख्य द्वार व अनुशासन हेतु शिक्षक ड्यूटी आवंटन चार्ट जनरेटर',
         descEn: 'Assign specific teacher duties for school activities & generate printable duty charts',
         iconName: 'briefcase' as const
+      },
+      {
+        id: 'assembly' as const,
+        titleHi: 'प्रार्थना सभा प्रभारी (Assembly)',
+        titleEn: 'Prarthana Prabhari (Assembly)',
+        descHi: 'दैनिक प्रार्थना सभा प्रबंधन, सामान्य ज्ञान प्रश्नोत्तरी, समाचार सुर्खियां, प्रेरक प्रसंग, बालिका मंच व योग क्रियाएं',
+        descEn: 'School morning assembly planner, daily Rajasthan GK, news bulletin, inspirational stories, girls choir roster & yoga timer',
+        iconName: 'book' as const
       }
     ];
 
@@ -314,6 +323,15 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
         <DutyRosterModule
           schoolProfile={schoolProfile}
           teachers={teachers}
+          lang={lang}
+          onBack={() => setActiveSubTab(null)}
+        />
+      )}
+
+      {/* ASSEMBLY / PRARTHANA PRABHARI MODULE */}
+      {activeSubTab === 'assembly' && (
+        <AssemblyInchargeModule
+          schoolProfile={schoolProfile}
           lang={lang}
           onBack={() => setActiveSubTab(null)}
         />

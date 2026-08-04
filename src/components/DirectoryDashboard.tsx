@@ -107,7 +107,7 @@ type NavLocation =
   | { type: 'category'; id: 'peeo' | 'teacher' | 'incharge' | 'portals' | 'student' }
   | { type: 'tool'; category: 'peeo'; subtab: 'increment' | 'timetable' | 'incharge' | 'substitution' | 'apar' | 'notice' | 'satyapan' | 'pramanikaran' }
   | { type: 'tool'; category: 'teacher'; subtab: 'classTeacher' | 'subjectTeacher' | 'librarian' | 'pti' | 'computer' | 'marksheet' | 'anomaly' | 'ict' | 'library' | 'diary'; subComponent?: string }
-  | { type: 'tool'; category: 'incharge'; subtab: 'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' }
+  | { type: 'tool'; category: 'incharge'; subtab: 'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | 'assembly' }
   | { type: 'tool'; category: 'portals'; subtab: 'portals' | 'calculator' | 'formats' }
   | { type: 'tool'; category: 'student'; subtab: 'timetable' | 'homework' | 'datesheet' | 'syllabus' | 'doubts' }
   | { type: 'shivira' }
@@ -118,6 +118,88 @@ type NavLocation =
   | { type: 'legal'; subtab?: 'privacy' | 'terms' | 'disclaimer' }
   | { type: 'about-us' }
   | { type: 'contact-us' };
+
+export const getCleanPathFromNav = (newNav: NavLocation): string => {
+  let path = '/';
+  if (newNav.type === 'category') {
+    if (newNav.id === 'incharge') path = '/incharge-portal';
+    else if (newNav.id === 'peeo') path = '/peeo-tools';
+    else if (newNav.id === 'portals') path = '/quick';
+    else path = `/${newNav.id}`;
+  } else if (newNav.type === 'tool') {
+    const cat = newNav.category;
+    const sub = newNav.subtab;
+    const subComp = 'subComponent' in newNav ? newNav.subComponent : undefined;
+    
+    if (cat === 'teacher' && sub === 'pti' && subComp === 'kridaShulk') {
+      path = '/teacher/pti/kridashulk';
+    } else if (cat === 'teacher' && sub === 'pti' && subComp === 'healthBmi') {
+      path = '/teacher-pti/healthbmi';
+    } else if (cat === 'teacher' && sub === 'pti' && subComp === 'sportsStock') {
+      path = '/teacher-pti/sportsstock';
+    } else if (cat === 'teacher' && sub === 'pti' && subComp === 'ptGrading') {
+      path = '/teacher-pti/ptgrading';
+    } else if (cat === 'teacher' && sub === 'marksheet') {
+      path = '/teacher-marksheet/greensheet';
+    } else if (cat === 'teacher' && sub === 'anomaly' && subComp === 'verification') {
+      path = '/teacher-anomaly/verification';
+    } else if (cat === 'teacher' && sub === 'diary') {
+      path = '/teacher-diary/lessonplanner';
+    } else if (cat === 'teacher' && sub === 'library' && subComp === 'catalogue') {
+      path = '/teacher-library/catalogue';
+    } else if (cat === 'teacher' && sub === 'computer' && subComp === 'equipmentStock') {
+      path = '/teacher-computer/equipmentstock';
+    } else if (cat === 'incharge' && sub === 'mdm') {
+      path = '/incharge-mdm/calculator';
+    } else if (cat === 'incharge' && sub === 'transport') {
+      path = '/incharge-transport/voucher';
+    } else if (cat === 'incharge' && sub === 'scholarship') {
+      path = '/incharge-scholarship/calculator';
+    } else if (cat === 'incharge' && sub === 'exam') {
+      path = '/incharge-exam/roster';
+    } else if (cat === 'peeo' && sub === 'timetable') {
+      path = '/peeo-timetable/generator';
+    } else if (cat === 'peeo' && sub === 'increment') {
+      path = '/peeo-increment/calculator';
+    } else if (cat === 'peeo' && sub === 'substitution') {
+      path = '/peeo-substitution/tracker';
+    } else if (cat === 'peeo' && sub === 'apar') {
+      path = '/peeo-apar/appraisal';
+    } else if (cat === 'portals' && sub === 'calculator') {
+      path = '/portals-calculator/salary';
+    } else if (cat === 'portals' && sub === 'formats') {
+      path = '/portals-formats/download';
+    } else {
+      path = `/${cat}-${sub}`;
+      if (subComp) {
+        path = `/${cat}-${sub}/${subComp}`;
+      }
+    }
+  } else if (newNav.type === 'shivira') {
+    path = '/shivira';
+  } else if (newNav.type === 'about-us') {
+    path = '/about-us';
+  } else if (newNav.type === 'contact-us') {
+    path = '/contact-us';
+  } else if (newNav.type === 'invitation') {
+    if (newNav.template === 'independence') {
+      path = '/invitation/independence';
+    } else {
+      path = '/invitation';
+    }
+  } else if (newNav.type === 'blogs') {
+    path = '/blogs';
+    if (newNav.subtab) {
+      path = `/blogs/${newNav.subtab}`;
+    }
+  } else if (newNav.type === 'legal') {
+    if (newNav.subtab === 'privacy') path = '/privacy-policy';
+    else if (newNav.subtab === 'terms') path = '/terms';
+    else if (newNav.subtab === 'disclaimer') path = '/disclaimer';
+    else path = '/privacy-policy';
+  }
+  return path;
+};
 
 export interface DashboardCardConfig {
   id: string;
@@ -391,83 +473,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   const updateNav = (newNav: NavLocation) => {
     setNav(newNav);
     
-    let path = '/';
-    if (newNav.type === 'category') {
-      if (newNav.id === 'incharge') path = '/work-incharge';
-      else if (newNav.id === 'portals') path = '/quick';
-      else path = `/${newNav.id}`;
-    } else if (newNav.type === 'tool') {
-      const cat = newNav.category;
-      const sub = newNav.subtab;
-      const subComp = 'subComponent' in newNav ? newNav.subComponent : undefined;
-      
-      if (cat === 'teacher' && sub === 'pti' && subComp === 'kridaShulk') {
-        path = '/teacher/pti/kridashulk';
-      } else if (cat === 'teacher' && sub === 'pti' && subComp === 'healthBmi') {
-        path = '/teacher-pti/healthbmi';
-      } else if (cat === 'teacher' && sub === 'pti' && subComp === 'sportsStock') {
-        path = '/teacher-pti/sportsstock';
-      } else if (cat === 'teacher' && sub === 'pti' && subComp === 'ptGrading') {
-        path = '/teacher-pti/ptgrading';
-      } else if (cat === 'teacher' && sub === 'marksheet') {
-        path = '/teacher-marksheet/greensheet';
-      } else if (cat === 'teacher' && sub === 'anomaly' && subComp === 'verification') {
-        path = '/teacher-anomaly/verification';
-      } else if (cat === 'teacher' && sub === 'diary') {
-        path = '/teacher-diary/lessonplanner';
-      } else if (cat === 'teacher' && sub === 'library' && subComp === 'catalogue') {
-        path = '/teacher-library/catalogue';
-      } else if (cat === 'teacher' && sub === 'computer' && subComp === 'equipmentStock') {
-        path = '/teacher-computer/equipmentstock';
-      } else if (cat === 'incharge' && sub === 'mdm') {
-        path = '/incharge-mdm/calculator';
-      } else if (cat === 'incharge' && sub === 'transport') {
-        path = '/incharge-transport/voucher';
-      } else if (cat === 'incharge' && sub === 'scholarship') {
-        path = '/incharge-scholarship/calculator';
-      } else if (cat === 'incharge' && sub === 'exam') {
-        path = '/incharge-exam/roster';
-      } else if (cat === 'peeo' && sub === 'timetable') {
-        path = '/peeo-timetable/generator';
-      } else if (cat === 'peeo' && sub === 'increment') {
-        path = '/peeo-increment/calculator';
-      } else if (cat === 'peeo' && sub === 'substitution') {
-        path = '/peeo-substitution/tracker';
-      } else if (cat === 'peeo' && sub === 'apar') {
-        path = '/peeo-apar/appraisal';
-      } else if (cat === 'portals' && sub === 'calculator') {
-        path = '/portals-calculator/salary';
-      } else if (cat === 'portals' && sub === 'formats') {
-        path = '/portals-formats/download';
-      } else {
-        path = `/${cat}-${sub}`;
-        if (subComp) {
-          path = `/${cat}-${sub}/${subComp}`;
-        }
-      }
-    } else if (newNav.type === 'shivira') {
-      path = '/shivira';
-    } else if (newNav.type === 'about-us') {
-      path = '/about-us';
-    } else if (newNav.type === 'contact-us') {
-      path = '/contact-us';
-    } else if (newNav.type === 'invitation') {
-      if (newNav.template === 'independence') {
-        path = '/invitation/independence';
-      } else {
-        path = '/invitation';
-      }
-    } else if (newNav.type === 'blogs') {
-      path = '/blogs';
-      if (newNav.subtab) {
-        path = `/blogs/${newNav.subtab}`;
-      }
-    } else if (newNav.type === 'legal') {
-      if (newNav.subtab === 'privacy') path = '/privacy-policy';
-      else if (newNav.subtab === 'terms') path = '/terms';
-      else if (newNav.subtab === 'disclaimer') path = '/disclaimer';
-      else path = '/privacy-policy';
-    }
+    const path = getCleanPathFromNav(newNav);
 
     if (window.location.pathname !== path) {
       window.history.pushState(null, '', path);
@@ -552,11 +558,11 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         newNav = { type: 'blogs', subtab: 'hub' };
       } else if (hash === 'legal') {
         newNav = { type: 'legal', subtab: 'privacy' };
-      } else if (hash === 'peeo') {
+      } else if (hash === 'peeo' || hash === 'peeo-tools') {
         newNav = { type: 'category', id: 'peeo' };
       } else if (hash === 'teacher') {
         newNav = { type: 'category', id: 'teacher' };
-      } else if (hash === 'work-incharge' || hash === 'incharge') {
+      } else if (hash === 'work-incharge' || hash === 'incharge' || hash === 'incharge-portal') {
         newNav = { type: 'category', id: 'incharge' };
       } else if (hash === 'quick' || hash === 'portals') {
         newNav = { type: 'category', id: 'portals' };
@@ -769,14 +775,16 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
   };
 
   const handleShare = () => {
+    const cleanPath = getCleanPathFromNav(nav);
+    const shareUrl = `${window.location.origin}${cleanPath}`;
     if (navigator.share) {
       navigator.share({
         title: 'शाला सहायक 2026 - Rajasthan School Helper',
         text: 'PEEO, Teachers, Exam Incharge and Rajasthan School Management Portal App',
-        url: window.location.href
+        url: shareUrl
       }).catch(() => {});
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(shareUrl);
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 3000);
     }
@@ -827,7 +835,8 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
         <div className="shrink-0 flex items-center space-x-1.5">
           <button
             onClick={() => {
-              const url = window.location.href;
+              const cleanPath = getCleanPathFromNav(nav);
+              const url = `${window.location.origin}${cleanPath}`;
               navigator.clipboard.writeText(url);
               setCopiedLink(true);
               setTimeout(() => setCopiedLink(false), 2500);
@@ -1340,6 +1349,14 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
                 bgTint="bg-teal-50 dark:bg-teal-950/40"
                 label={lang === 'hi' ? 'क्यूआर कोड जनरेटर' : 'QR Code Generator'}
                 delayIndex={6}
+              />
+
+              <ThreeDCard
+                onClick={() => updateNav({ type: 'tool', category: 'incharge', subtab: 'assembly' })}
+                icon="book"
+                bgTint="bg-amber-50 dark:bg-amber-950/40"
+                label={lang === 'hi' ? 'प्रार्थना सभा प्रभारी' : 'Morning Assembly'}
+                delayIndex={7}
               />
             </>
           )}

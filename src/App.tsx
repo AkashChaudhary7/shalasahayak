@@ -125,12 +125,22 @@ export default function App() {
           onToggleDarkMode={() => setDarkMode(!darkMode)}
           schoolProfile={schoolProfile}
           onOpenSettings={() => setIsSettingsOpen(true)}
-          onNavigate={(hash) => { window.location.hash = hash; }}
+          onNavigate={(path) => {
+            let cleanPath = path;
+            if (path.startsWith('#')) {
+              cleanPath = path.replace('#', '/');
+            }
+            if (!cleanPath.startsWith('/')) {
+              cleanPath = '/' + cleanPath;
+            }
+            window.history.pushState(null, '', cleanPath);
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          }}
         />
       </div>
 
       {/* Main Responsive Webview Container */}
-      <main className="flex-1 max-w-7xl mx-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full transition-all duration-300 pt-20 sm:pt-24 pb-16 md:pb-12 app-main-content">
+      <main className="flex-1 max-w-7xl mx-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full transition-all duration-300 pt-24 sm:pt-28 md:pt-32 pb-10 app-main-content">
         <DirectoryDashboard
           schoolProfile={schoolProfile}
           teachers={teachers}
@@ -151,19 +161,30 @@ export default function App() {
           onOpenSettings={() => setIsSettingsOpen(true)}
           onOpenFeedback={() => setIsFeedbackOpen(true)}
         />
-
-        {/* Bottom Footer & Social Media Banner Bar at Lowest Level */}
-        <div className="w-full mt-auto app-footer-container no-print">
-          <Footer
-            lang={lang}
-            onOpenFeedback={() => setIsFeedbackOpen(true)}
-          />
-
-          <div className="hidden md:block">
-            <SocialHeaderBar />
-          </div>
-        </div>
       </main>
+
+      {/* Bottom Footer & Social Media Banner Bar at Lowest Level */}
+      <div className="w-full mt-auto app-footer-container no-print">
+        {/* Social Media Bar ABOVE Footer */}
+        <SocialHeaderBar />
+
+        {/* Footer */}
+        <Footer
+          lang={lang}
+          onOpenFeedback={() => setIsFeedbackOpen(true)}
+          onNavigate={(path) => {
+            let cleanPath = path;
+            if (path.startsWith('#')) {
+              cleanPath = path.replace('#', '/');
+            }
+            if (!cleanPath.startsWith('/')) {
+              cleanPath = '/' + cleanPath;
+            }
+            window.history.pushState(null, '', cleanPath);
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          }}
+        />
+      </div>
 
       {/* Settings Modal */}
       <SchoolProfileModal

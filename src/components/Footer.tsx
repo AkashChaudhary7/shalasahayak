@@ -3,7 +3,6 @@ import { Share2, Send, MessageSquare, ShieldCheck, FileText, ExternalLink, Spark
 import { Language } from '../types';
 import { t } from '../utils/i18n';
 
-
 interface FooterProps {
   lang: Language;
   onOpenFeedback: () => void;
@@ -14,39 +13,54 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
   const isHi = lang === 'hi';
 
   const handleShareApp = async () => {
+    let cleanUrl = window.location.origin + window.location.pathname;
+    if (window.location.hash) {
+      const h = window.location.hash.replace('#', '').toLowerCase();
+      if (h === 'peeo' || h === 'peeo-tools') cleanUrl = `${window.location.origin}/peeo-tools`;
+      else if (h === 'incharge' || h === 'work-incharge' || h === 'incharge-portal') cleanUrl = `${window.location.origin}/incharge-portal`;
+      else if (h === 'shivira') cleanUrl = `${window.location.origin}/shivira`;
+      else if (h === 'contact-us') cleanUrl = `${window.location.origin}/contact-us`;
+      else if (h === 'privacy-policy' || h === 'privacy') cleanUrl = `${window.location.origin}/privacy-policy`;
+    }
+
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Shala Sahayak (शाला सहायक)',
           text: 'Shala Sahayak - The complete digital toolkit for Rajasthan Education Department personnel!',
-          url: window.location.href
+          url: cleanUrl
         });
       } catch (err) {
         console.log('Share cancelled', err);
       }
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(cleanUrl);
       alert('App link copied to clipboard! Share it with fellow teachers.');
     }
   };
 
   const handleOpenHindiPdf = () => {
     // Navigate to Shivira / Hindi PDF guidelines section
-    window.location.hash = '#shivira';
+    if (onNavigate) {
+      onNavigate('/shivira');
+    } else {
+      window.history.pushState(null, '', '/shivira');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
       {/* Mobile Compact Single-Line Footer */}
-      <div className="md:hidden w-full py-2.5 px-3 text-center text-[0.7rem] text-slate-500 dark:text-slate-400 bg-transparent border-t border-slate-200/30 dark:border-slate-800/30 app-footer mt-6 mb-2">
+      <div className="md:hidden w-full py-4 px-4 text-center text-[0.75rem] text-slate-400 bg-slate-950 border-t border-slate-850 app-footer mt-0">
         <p className="truncate">
           © {new Date().getFullYear()} Shala Sahayak • {isHi ? 'राजस्थान शिक्षा विभाग डिजिटल सहायिका' : 'Rajasthan Education Dept'}
         </p>
       </div>
 
       {/* Desktop Full Rich Footer */}
-      <footer className="hidden md:block w-full bg-slate-950 text-slate-300 pt-12 pb-8 px-4 sm:px-6 lg:px-8 mt-12 border-t border-slate-800 text-xs app-footer">
+      <footer className="hidden md:block w-full bg-slate-950 text-slate-300 pt-12 pb-8 px-4 sm:px-6 lg:px-8 mt-0 border-t border-slate-850 text-xs app-footer">
         <div className="max-w-7xl mx-auto space-y-10">
           
           {/* Main Website Grid (4 Columns) */}
@@ -68,7 +82,10 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   : 'Empowering Rajasthan Education Department staff with authentic digital tools, Krida Shulk Form Maker, Shivira Calendar, and Pay Matrix calculators.'}
               </p>
 
-              
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] font-semibold text-emerald-400">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>{t('privacyNote', lang)}</span>
+              </div>
             </div>
 
             {/* Column 2: Quick Navigation & Tools */}
@@ -79,22 +96,58 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
               </h4>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <a href="/teacher/pti/kridashulk" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                  <a
+                    href="/teacher/pti/kridashulk"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('/teacher/pti/kridashulk');
+                      }
+                    }}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
                     <span className="text-amber-400">•</span> {isHi ? 'क्रीड़ा शुल्क विवरण प्रपत्र मेकर' : 'Krida Shulk Maker'}
                   </a>
                 </li>
                 <li>
-                  <a href="#peeo" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                  <a
+                    href="/peeo-tools"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('/peeo-tools');
+                      }
+                    }}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
                     <span className="text-emerald-400">•</span> {isHi ? 'PEEO / DDO प्रशासनिक टूलकिट' : 'PEEO Admin Toolkit'}
                   </a>
                 </li>
                 <li>
-                  <a href="#incharge" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
-                    <span className="text-blue-400">•</span> {isHi ? 'परीक्षा प्रभारी मॉड्यूल' : 'Exam Incharge Hub'}
+                  <a
+                    href="/incharge-portal"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('/incharge-portal');
+                      }
+                    }}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
+                    <span className="text-blue-400">•</span> {isHi ? 'प्रभारी पोर्टल (परीक्षा, एमडीएम, ईएलसी)' : 'Incharge Portal'}
                   </a>
                 </li>
                 <li>
-                  <a href="#shivira" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                  <a
+                    href="/shivira"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('/shivira');
+                      }
+                    }}
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                  >
                     <span className="text-purple-400">•</span> {isHi ? 'शिविरा पंचांग एवं अकादमिक कैलेंडर' : 'Shivira Calendar'}
                   </a>
                 </li>
@@ -151,17 +204,26 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   <Share2 className="w-4 h-4" />
                   <span>{isHi ? 'शेयर करें' : 'Share App'}</span>
                 </button>
+
+                <button
+                  onClick={handleOpenHindiPdf}
+                  className="px-3.5 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-black text-xs flex items-center space-x-1.5 shadow-md transition-all active:scale-95 border border-rose-500/50 cursor-pointer"
+                  title="Hindi PDF Guidelines & Shivira Calendar"
+                >
+                  <FileText className="w-4 h-4 text-amber-300" />
+                  <span>PDF: Hindi</span>
+                </button>
               </div>
 
               <div className="pt-1 flex flex-wrap gap-2">
                 <a
-                  href="https://t.me/shalasahayak_in"
+                  href="https://t.me/rajasthan_education_news"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all"
                 >
                   <Send className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{isHi ? 'टेलीग्राम' : 'Telegram Channel'}</span>
+                  <span>{isHi ? 'टेलीग्राम चैनल' : 'Telegram Channel'}</span>
                 </a>
 
                 <button
@@ -170,7 +232,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   title="Submit Feedback"
                 >
                   <MessageSquare className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{isHi ? 'सुझाव ' : 'Feedback'}</span>
+                  <span>{isHi ? 'सुझाव / सहायता' : 'Feedback'}</span>
                 </button>
               </div>
             </div>

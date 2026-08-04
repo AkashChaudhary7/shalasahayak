@@ -385,24 +385,26 @@ export const KridaShulkMaker: React.FC<{
     localStorage.setItem('krida_shulk_form_date', formDate);
 
     // Call IndexNow protocol API to accelerate search indexing
-    notifyIndexNow([window.location.href]);
+    const directUrl = `${window.location.origin}/teacher/pti/kridashulk`;
+    notifyIndexNow([directUrl]);
 
     alert(lang === 'hi' ? 'विवरण सुरक्षित कर लिया गया है!' : 'Details saved successfully!');
   };
 
   const handleShare = async () => {
+    const directUrl = `${window.location.origin}/teacher/pti/kridashulk`;
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'क्रीड़ा शुल्क विवरण प्रपत्र (Shala Sahayak)',
           text: `शाला सहायक: ${schoolDetails.schoolName || 'राजस्थान विद्यालय'} क्रीड़ा शुल्क विवरण प्रपत्र।`,
-          url: window.location.href
+          url: directUrl
         });
       } catch (err) {
         console.log('Share error or cancelled', err);
       }
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(directUrl);
       alert(lang === 'hi' ? 'लिंक क्लिपबोर्ड पर कॉपी हो गया!' : 'Link copied to clipboard!');
     }
   };
