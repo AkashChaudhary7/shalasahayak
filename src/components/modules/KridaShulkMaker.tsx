@@ -1114,11 +1114,11 @@ export const KridaShulkMaker: React.FC<{
           </div>
 
           {/* Core high-fidelity preview box matching physical layout exactly */}
-          <div className="bg-slate-50 dark:bg-slate-950 p-4 sm:p-8 rounded-2xl flex justify-center overflow-x-auto">
+          <div className="bg-slate-50 dark:bg-slate-950 p-4 sm:p-8 rounded-2xl flex justify-center overflow-x-auto print:p-0 print:bg-transparent print:shadow-none print:border-none print:block print:w-full print:max-w-none">
             <div
               id="kridaShulkPreview"
               ref={previewRef}
-              className="bg-white text-black p-8 border-2 border-slate-300 shadow-md font-sans w-[210mm] min-h-[295mm] relative space-y-5 print:p-0 print:border-0 print:shadow-none print:space-y-1.5"
+              className="bg-white text-black p-8 border-2 border-slate-300 shadow-md font-sans w-[210mm] min-h-[295mm] relative space-y-5 print:border-0 print:shadow-none print:space-y-2"
               style={{ contentVisibility: 'auto' }}
             >
               {/* Document Header */}
