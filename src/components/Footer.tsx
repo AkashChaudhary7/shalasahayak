@@ -151,26 +151,17 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   <Share2 className="w-4 h-4" />
                   <span>{isHi ? 'शेयर करें' : 'Share App'}</span>
                 </button>
-
-                <button
-                  onClick={handleOpenHindiPdf}
-                  className="px-3.5 py-2 rounded-xl bg-rose-700 hover:bg-rose-600 text-white font-black text-xs flex items-center space-x-1.5 shadow-md transition-all active:scale-95 border border-rose-500/50 cursor-pointer"
-                  title="Hindi PDF Guidelines & Shivira Calendar"
-                >
-                  <FileText className="w-4 h-4 text-amber-300" />
-                  <span>PDF: Hindi</span>
-                </button>
               </div>
 
               <div className="pt-1 flex flex-wrap gap-2">
                 <a
-                  href="https://t.me/rajasthan_education_news"
+                  href="https://t.me/shalasahayak_in"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md transition-all"
                 >
                   <Send className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{isHi ? 'टेलीग्राम चैनल' : 'Telegram Channel'}</span>
+                  <span>{isHi ? 'टेलीग्राम' : 'Telegram Channel'}</span>
                 </a>
 
                 <button
@@ -179,7 +170,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   title="Submit Feedback"
                 >
                   <MessageSquare className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{isHi ? 'सुझाव / सहायता' : 'Feedback'}</span>
+                  <span>{isHi ? 'सुझाव ' : 'Feedback'}</span>
                 </button>
               </div>
             </div>
