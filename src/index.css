@@ -48,7 +48,7 @@
 html, body, #root {
   min-height: 100vh;
   background-color: #f8fafc;
-  background-image: url('/bg-pattern.svg');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0 L56 16 L56 48 L28 64 L0 48 L0 16 Z M28 48 L56 64 L56 96 L28 112 M0 48 L28 64 M0 80 L28 96' stroke='%23cbd5e1' stroke-width='1.5' fill='none' opacity='0.85'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 56px 96px;
   background-attachment: scroll;
@@ -57,7 +57,7 @@ html, body, #root {
 /* Dark mode subtle background overlay */
 .dark, html.dark, html.dark body, html.dark #root {
   background-color: #090e1a;
-  background-image: url('/bg-pattern.svg');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cpath d='M28 0 L56 16 L56 48 L28 64 L0 48 L0 16 Z M28 48 L56 64 L56 96 L28 112 M0 48 L28 64 M0 80 L28 96' stroke='%23334155' stroke-width='1.5' fill='none' opacity='0.45'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 56px 96px;
   background-attachment: scroll;
@@ -92,17 +92,17 @@ html, body, #root {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    height: 56px !important;
+    height: calc(56px + env(safe-area-inset-top, 0px)) !important;
     z-index: 1000 !important;
     padding-top: env(safe-area-inset-top, 0px);
   }
 
-  /* Main scrollable content area between header and bottom navigation */
+  /* Main scrollable content area below top header */
   main,
   .app-main-content {
     position: fixed !important;
-    top: 56px !important;
-    bottom: 60px !important;
+    top: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     overflow-y: auto !important;
@@ -112,16 +112,6 @@ html, body, #root {
     max-width: 100% !important;
     box-sizing: border-box !important;
     padding: 16px 12px 20px !important;
-  }
-
-  /* Fixed Bottom Navigation */
-  .bottom-nav {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 60px !important;
-    z-index: 1000 !important;
   }
 
   /* Minimized Compact Footer */

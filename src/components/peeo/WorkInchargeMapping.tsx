@@ -24,7 +24,7 @@ interface WorkInchargeMappingProps {
   lang: Language;
 }
 
-// 4 Primary Required Institutional Roles
+// 5 Primary Required Institutional Roles
 const REQUIRED_PRIMARY_ROLES = [
   {
     id: 'inc-exam',
@@ -48,6 +48,12 @@ const REQUIRED_PRIMARY_ROLES = [
     id: 'inc-mdm',
     chargeNameHindi: 'मध्याह्न भोजन प्रभारी - एमडीएम',
     chargeName: 'MDM Incharge - Mid Day Meal',
+    category: 'Welfare'
+  },
+  {
+    id: 'inc-transport',
+    chargeNameHindi: 'परिवहन भत्ता / ट्रांसपोर्ट वाउचर प्रभारी',
+    chargeName: 'Transport Voucher Incharge',
     category: 'Welfare'
   }
 ];

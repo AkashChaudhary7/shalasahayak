@@ -77,7 +77,8 @@ import {
   X,
   GripVertical,
   RotateCcw,
-  Sliders
+  Sliders,
+  RefreshCw
 } from 'lucide-react';
 
 interface DirectoryDashboardProps {
@@ -390,20 +391,6 @@ const DEFAULT_DASHBOARD_CARDS: DashboardCardConfig[] = [
     descHi: 'ऐप सुधार हेतु अपने सुझाव भेजें',
     descEn: 'Send feedback or report an issue',
     keywords: ['feedback', 'सुझाव', 'support', 'सहायता', 'issue']
-  },
-  {
-    id: 'settings',
-    type: 'action',
-    action: 'settings',
-    icon: 'settings',
-    bgTint: 'bg-slate-100 dark:bg-slate-800/80',
-    labelHi: 'सेटिंग्स व अन्य',
-    labelEn: 'Settings',
-    ariaHi: 'ऐप सेटिंग्स एवं प्रोफ़ाइल',
-    ariaEn: 'App Settings and Configuration',
-    descHi: 'भाषा परिवर्तन, थीम एवं विद्यालय प्रोफ़ाइल',
-    descEn: 'Change language, theme and school profile',
-    keywords: ['settings', 'सेटिंग्स', 'language', 'भाषा', 'theme', 'प्रोफ़ाइल']
   }
 ];
 
@@ -971,7 +958,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
               lang={lang}
               initialSubTab={nav.subtab as any}
               onBack={goBack}
-              onNavigate={onNavigate}
+              onNavigate={updateNav}
             />
           )}
 
@@ -1323,7 +1310,7 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
                 onClick={() => updateNav({ type: 'tool', category: 'incharge', subtab: 'exam' })}
                 icon="target"
                 bgTint="bg-teal-50 dark:bg-teal-950/40"
-                label={lang === 'hi' ? 'परीक्षा सिटिंग प्लान' : 'Seating Matrix'}
+                label={lang === 'hi' ? 'परीक्षा प्रभारी (Exam Incharge)' : 'Exam Incharge'}
                 delayIndex={3}
               />
 
@@ -1393,6 +1380,50 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
 
         {/* PROMO BANNER CAROUSEL - RESTRICTED TO HOME SCREEN ONLY */}
         <TopPromoBanner lang={lang} onNavigateToTool={handleNavigateToToolFromHelp} />
+
+        {/* SCHOOL SETUP & SETTINGS CONTROL CENTER (TOP PROMINENT BANNER) */}
+        <div className="bg-emerald-950 dark:bg-slate-900 border border-emerald-600/30 rounded-2xl p-2.5 sm:p-4 shadow-sm flex flex-row items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3.5 min-w-0 flex-1">
+            <div className="p-1.5 sm:p-2.5 bg-emerald-800/60 text-amber-300 rounded-xl border border-emerald-700/60 shrink-0">
+              <Building2 className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div className="space-y-0.5 sm:space-y-1 min-w-0">
+              <h3 className="font-extrabold text-xs sm:text-sm text-white flex items-center gap-1.5 sm:gap-2 truncate">
+                <span className="truncate">{lang === 'hi' ? 'विद्यालय सेटअप एवं सेटिंग्स' : 'School Profile Setup & Settings'}</span>
+                <span className="hidden md:inline-block text-[9px] tracking-wide font-black uppercase px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950">
+                  {lang === 'hi' ? 'त्वरित नियंत्रण' : 'Quick Control'}
+                </span>
+              </h3>
+              <p className="text-xs text-emerald-200/80 font-medium hidden sm:block">
+                {lang === 'hi'
+                  ? 'विद्यालय विवरण, शिक्षक सूची एवं प्रभार सेटअप को बिना स्क्रॉल किए प्रबंधित करें'
+                  : 'Manage school details, staff records, and visible modules instantly with zero scroll'}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row gap-1.5 sm:gap-2.5 shrink-0">
+            <button
+              onClick={() => {
+                if (confirm(lang === 'hi' ? 'क्या आप सारा पुराना स्थानीय डेटा और कैश साफ़ करके नवीनतम डेटा लोड करना चाहते हैं?' : 'Are you sure you want to clear stale local data and service worker caches to load the latest updated content?')) {
+                  storage.clearStaleData();
+                  window.location.reload();
+                }
+              }}
+              className="px-2 py-1 sm:px-4 sm:py-2 bg-emerald-900 hover:bg-emerald-850 dark:bg-slate-800 dark:hover:bg-slate-700 text-amber-300 hover:text-amber-200 font-extrabold text-[10px] sm:text-xs rounded-xl flex items-center justify-center gap-1 sm:gap-2 border border-emerald-700/50 dark:border-slate-700 transition-all active:scale-[0.98] shadow-sm cursor-pointer shrink-0"
+              title={lang === 'hi' ? 'लोकल स्टोरेज और कैश साफ़ करें' : 'Clear local storage & caches'}
+            >
+              <RefreshCw className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="hidden xs:inline">{lang === 'hi' ? 'रीफ्रेश' : 'Refresh'}</span>
+            </button>
+            <button
+              onClick={onOpenSettings}
+              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-amber-400 hover:bg-amber-300 text-emerald-950 font-black text-[10px] sm:text-xs rounded-xl flex items-center justify-center gap-1 sm:gap-2 transition-all active:scale-[0.98] shadow-sm hover:shadow cursor-pointer shrink-0 group"
+            >
+              <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:rotate-90 transition-transform duration-300" />
+              <span>{lang === 'hi' ? 'सेटअप' : 'Setup'}</span>
+            </button>
+          </div>
+        </div>
         
         {/* REAL-TIME FUZZY SEARCH BAR */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-2.5 shadow-sm space-y-2">
@@ -1625,88 +1656,6 @@ export const DirectoryDashboard: React.FC<DirectoryDashboardProps> = ({
           </div>
         </>
       )}
-
-      {/* Persistent Sticky Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-[1000] h-[60px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-2xl px-3 flex items-center justify-center select-none bottom-nav">
-        <div className="w-full max-w-md md:max-w-5xl lg:max-w-6xl mx-auto flex items-center justify-around">
-          
-          {/* Home Tab */}
-          <button
-            onClick={() => updateNav({ type: 'home' })}
-            className={`flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer active:scale-95 group ${
-              isHomeActive
-                ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            <Home className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span className="text-[10px] sm:text-xs">
-              {lang === 'hi' ? 'मुख्य' : 'Home'}
-            </span>
-          </button>
-
-          {/* PEEO Tab */}
-          <button
-            onClick={() => updateNav({ type: 'category', id: 'peeo' })}
-            className={`flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer active:scale-95 group ${
-              isPeeoActive
-                ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            <Building2 className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span className="text-[10px] sm:text-xs">
-              {lang === 'hi' ? 'पीईईओ' : 'PEEO'}
-            </span>
-          </button>
-
-          {/* Teachers Tab */}
-          <button
-            onClick={() => updateNav({ type: 'category', id: 'teacher' })}
-            className={`flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer active:scale-95 group ${
-              isTeacherActive
-                ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            <GraduationCap className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span className="text-[10px] sm:text-xs">
-              {lang === 'hi' ? 'शिक्षक' : 'Teacher'}
-            </span>
-          </button>
-
-          {/* Work Incharge Tab */}
-          <button
-            onClick={() => updateNav({ type: 'category', id: 'incharge' })}
-            className={`flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer active:scale-95 group ${
-              isInchargeActive
-                ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            <Briefcase className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span className="text-[10px] sm:text-xs">
-              {lang === 'hi' ? 'प्रभारी' : 'Incharge'}
-            </span>
-          </button>
-
-          {/* Portals Tab */}
-          <button
-            onClick={() => updateNav({ type: 'tool', category: 'portals', subtab: 'portals' })}
-            className={`flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer active:scale-95 group ${
-              isPortalsActive
-                ? 'text-emerald-600 dark:text-emerald-400 font-extrabold'
-                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-300'
-            }`}
-          >
-            <ExternalLink className="w-5 h-5 transition-transform group-hover:scale-110" />
-            <span className="text-[10px] sm:text-xs">
-              {lang === 'hi' ? 'पोर्टल्स' : 'Portals'}
-            </span>
-          </button>
-
-        </div>
-      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Share2, Send, MessageSquare, ShieldCheck, FileText, ExternalLink, Sparkles, BookOpen } from 'lucide-react';
+import { Share2, Send, MessageSquare, FileText, ExternalLink, Sparkles, BookOpen } from 'lucide-react';
 import { Language } from '../types';
 import { t } from '../utils/i18n';
 
@@ -81,11 +81,6 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenFeedback, onNavigate
                   ? 'राजस्थान शिक्षा विभाग के शिक्षकों, संस्थाप्रधानों, PEEO व प्रभारियों हेतु डिजिटल पोर्टल, क्रीड़ा शुल्क प्रपत्र, पे-मैट्रिक्स एवं प्रशासनिक सहायिका।'
                   : 'Empowering Rajasthan Education Department staff with authentic digital tools, Krida Shulk Form Maker, Shivira Calendar, and Pay Matrix calculators.'}
               </p>
-
-              <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] font-semibold text-emerald-400">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>{t('privacyNote', lang)}</span>
-              </div>
             </div>
 
             {/* Column 2: Quick Navigation & Tools */}

@@ -31,9 +31,12 @@ export default function App() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
-    // Register Service Worker
+    // Register Service Worker with cache-busting strategy
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(err => {
+      const swUrl = `/sw.js?v=3.0.4-cb-${new Date().toDateString().replace(/\s+/g, '-')}`;
+      navigator.serviceWorker.register(swUrl, { updateViaCache: 'none' }).then((reg) => {
+        reg.update();
+      }).catch(err => {
         console.log('Service Worker Registration failed', err);
       });
     }
@@ -140,7 +143,7 @@ export default function App() {
       </div>
 
       {/* Main Responsive Webview Container */}
-      <main className="flex-1 max-w-7xl mx-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full transition-all duration-300 pt-24 sm:pt-28 md:pt-32 pb-10 app-main-content">
+      <main className="flex-1 max-w-7xl mx-auto px-3 pb-10 pt-20 sm:px-6 sm:pt-24 md:pt-28 lg:px-8 space-y-6 w-full transition-all duration-300 app-main-content">
         <DirectoryDashboard
           schoolProfile={schoolProfile}
           teachers={teachers}

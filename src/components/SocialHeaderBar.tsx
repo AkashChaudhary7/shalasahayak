@@ -98,7 +98,7 @@ export const SocialHeaderBar: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-3 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200 shadow-sm no-print">
+    <div className="hidden sm:block w-full bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-3 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200 shadow-sm no-print">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         
         {/* Label and Live Status */}

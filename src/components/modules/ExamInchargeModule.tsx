@@ -3,6 +3,7 @@ import { SchoolProfile, Teacher, Language } from '../../types';
 import { cleanClonedDocForCanvas } from '../../utils/safeHtml2Canvas';
 import { ThreeDCard } from '../ThreeDIcon';
 import { ExamSchedulePlanner } from './ExamSchedulePlanner';
+import { BoardExamRemunerationBill } from '../incharge/BoardExamRemunerationBill';
 import {
   Calendar,
   Users,
@@ -24,7 +25,10 @@ import {
   Globe,
   Notebook,
   AlertTriangle,
-  ArrowLeft
+  ArrowLeft,
+  Upload,
+  Image,
+  IndianRupee
 } from 'lucide-react';
 
 interface ExamInchargeModuleProps {
@@ -317,7 +321,7 @@ export const ExamInchargeModule: React.FC<ExamInchargeModuleProps> = ({
 
   // Primary active tab selector
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'schedule' | 'seating' | 'duty' | 'expenditure' | 'stock' | 'board' | 'local' | 'msra'
+    'dashboard' | 'schedule' | 'seating' | 'remuneration' | 'resizer' | 'duty' | 'expenditure' | 'stock' | 'board' | 'local' | 'msra'
   >('dashboard');
 
   // Multi-sub-tabs categorization
@@ -678,10 +682,12 @@ export const ExamInchargeModule: React.FC<ExamInchargeModuleProps> = ({
             <span className="font-extrabold text-slate-500 block uppercase font-sans tracking-wide">
               {tStrings.generalTools}
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
               {[
                 { id: 'schedule', label: isHi ? 'परीक्षा समय-सारणी प्लैनर' : 'Exam Schedule Planner', icon: 'calendar' },
                 { id: 'seating', label: tStrings.seatingTab, icon: 'target' },
+                { id: 'remuneration', label: isHi ? 'परीक्षा मानदेय बिल' : 'Remuneration Bill', icon: 'money-bag' },
+                { id: 'resizer', label: isHi ? 'फोटो/साइन रिसाइज़र' : 'Image Resizer', icon: 'coupon' },
                 { id: 'duty', label: tStrings.dutyTab, icon: 'users' },
                 { id: 'expenditure', label: tStrings.expenditureTab, icon: 'coin' },
                 { id: 'stock', label: tStrings.stockTab, icon: 'gold' }
@@ -736,6 +742,120 @@ export const ExamInchargeModule: React.FC<ExamInchargeModuleProps> = ({
             lang={modLang}
             onBack={() => setActiveTab('dashboard')}
           />
+        )}
+
+        {/* TAB 30B: REMUNERATION BILL */}
+        {activeTab === 'remuneration' && (
+          <BoardExamRemunerationBill
+            schoolProfile={schoolProfile}
+            teachers={teachers}
+            lang={modLang}
+            onBack={() => setActiveTab('dashboard')}
+          />
+        )}
+
+        {/* TAB 30C: PHOTO & SIGNATURE RESIZER */}
+        {activeTab === 'resizer' && (
+          <div className="space-y-4">
+            <div className="p-3 bg-sky-50/60 dark:bg-sky-950/20 rounded-xl border border-sky-200 dark:border-sky-800/40 text-xs text-sky-800 dark:text-sky-200">
+              <h4 className="font-extrabold flex items-center gap-1.5 text-[13px] mb-1">
+                <Image className="w-4 h-4 text-sky-600" />
+                <span>{isHi ? 'शाला दर्पण व आरबीएसई फोटो/हस्ताक्षर रिसाइज़र' : 'RBSE & Shala Darpan Photo & Signature Resizer'}</span>
+              </h4>
+              <p>{isHi ? 'बोर्ड पोर्टल एवं शाला दर्पण हेतु आवश्यक 20-50KB (फोटो) एवं 10-20KB (हस्ताक्षर) साइज़ अनुसार त्वरित कंप्रेसर' : 'Compress and resize student/staff photos & signatures to exact board portal specifications.'}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div className="p-5 rounded-2xl border-2 border-dashed border-emerald-300 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20 text-center space-y-3">
+                <Upload className="w-8 h-8 text-emerald-600 mx-auto animate-bounce" />
+                <div>
+                  <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200">
+                    {isHi ? 'फोटो अथवा हस्ताक्षर इमेज चुनें' : 'Select Image File'}
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">JPG, PNG, WEBP (Max 10MB)</p>
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  id="exam-resizer-file-input"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (evt) => {
+                        const img = document.getElementById('exam-resizer-preview-img') as HTMLImageElement;
+                        if (img && evt.target?.result) {
+                          img.src = evt.target.result as string;
+                          img.classList.remove('hidden');
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="exam-resizer-file-input"
+                  className="inline-block px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer shadow-md transition-colors"
+                >
+                  {isHi ? 'फाइल अपलोड करें' : 'Browse File'}
+                </label>
+              </div>
+
+              <div className="space-y-3 text-xs bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <h4 className="font-extrabold text-slate-800 dark:text-slate-200">
+                  {isHi ? 'पोर्टल रीसाइज़ प्रीसेट चुनें' : 'Target Portal Specifications'}
+                </h4>
+
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                    <input type="radio" name="exam-preset" defaultChecked className="accent-emerald-600" />
+                    <div>
+                      <div className="font-bold text-slate-800 dark:text-slate-200">Shala Darpan / RBSE Student Photo (20 KB - 50 KB)</div>
+                      <div className="text-[10px] text-slate-500">Dimensions: 300 x 400 px</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                    <input type="radio" name="exam-preset" className="accent-emerald-600" />
+                    <div>
+                      <div className="font-bold text-slate-800 dark:text-slate-200">Shala Darpan / RBSE Signature (10 KB - 20 KB)</div>
+                      <div className="text-[10px] text-slate-500">Dimensions: 300 x 150 px</div>
+                    </div>
+                  </label>
+
+                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                    <input type="radio" name="exam-preset" className="accent-emerald-600" />
+                    <div>
+                      <div className="font-bold text-slate-800 dark:text-slate-200">PayManager / Board Center Document (&lt; 300 KB)</div>
+                      <div className="text-[10px] text-slate-500">Dimensions: 800 x 1100 px</div>
+                    </div>
+                  </label>
+                </div>
+
+                <div className="pt-2">
+                  <img id="exam-resizer-preview-img" alt="Resized Preview" className="hidden max-h-36 mx-auto rounded-xl border border-slate-300 shadow-sm" />
+                  <button
+                    onClick={() => {
+                      const img = document.getElementById('exam-resizer-preview-img') as HTMLImageElement;
+                      if (img && img.src) {
+                        const a = document.createElement('a');
+                        a.href = img.src;
+                        a.download = 'Resized_Exam_Doc.jpg';
+                        a.click();
+                      } else {
+                        alert(isHi ? 'कृपया पहले इमेज फाइल अपलोड करें!' : 'Please upload an image first!');
+                      }
+                    }}
+                    className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center justify-center gap-2 shadow-sm transition-colors mt-2 cursor-pointer"
+                  >
+                    <Download className="w-4 h-4 text-amber-300" />
+                    <span>{isHi ? 'रिसाइज़ एवं डाउनलोड करें' : 'Resize & Download Image'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
 
         {/* TAB 3A: SEATING ARRANGEMENT ENGINE */}

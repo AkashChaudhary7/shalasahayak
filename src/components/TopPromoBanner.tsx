@@ -24,7 +24,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
       actionType: 'external',
       url: 'https://t.me/shalasahayak_in',
       graphic: (
-        <svg viewBox="0 0 120 120" fill="none" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-md">
+        <svg viewBox="0 0 120 120" fill="none" className="w-10 h-10 sm:w-20 sm:h-20 drop-shadow-md">
           <circle cx="60" cy="60" r="50" fill="url(#tgGradApp)" />
           <circle cx="60" cy="60" r="42" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeDasharray="4 4" />
           <path d="M30 60L90 34L76 90L60 72L48 81L51 65L83 43L41 62L30 60Z" fill="white" />
@@ -50,7 +50,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
       actionType: 'internal',
       toolId: 'shivira',
       graphic: (
-        <svg viewBox="0 0 120 120" fill="none" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-md">
+        <svg viewBox="0 0 120 120" fill="none" className="w-10 h-10 sm:w-20 sm:h-20 drop-shadow-md">
           <rect x="22" y="22" width="76" height="80" rx="18" fill="url(#calGradApp)" />
           <path d="M22 42H98V22C98 19.337 95.863 17 93.2 17H26.8C24.137 17 22 19.337 22 22V42Z" fill="#044E3B" />
           <rect x="38" y="10" width="10" height="15" rx="5" fill="#FCD34D" />
@@ -83,7 +83,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
       actionType: 'internal',
       toolId: 'peeo-orders',
       graphic: (
-        <svg viewBox="0 0 120 120" fill="none" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-md">
+        <svg viewBox="0 0 120 120" fill="none" className="w-10 h-10 sm:w-20 sm:h-20 drop-shadow-md">
           <circle cx="60" cy="54" r="38" fill="url(#orderGradApp)" />
           <path d="M60 28L67 45H85L71 56L76 73L60 62L44 73L49 56L35 45H53L60 28Z" fill="#FCD34D" />
           <rect x="50" y="88" width="20" height="18" rx="5" fill="#E11D48" />
@@ -110,7 +110,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
       actionType: 'internal',
       toolId: 'mdm',
       graphic: (
-        <svg viewBox="0 0 120 120" fill="none" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-md">
+        <svg viewBox="0 0 120 120" fill="none" className="w-10 h-10 sm:w-20 sm:h-20 drop-shadow-md">
           <rect x="24" y="28" width="72" height="72" rx="20" fill="url(#mdmGradApp)" />
           <circle cx="60" cy="58" r="22" fill="#FEF3C7" />
           <path d="M52 58C52 52 68 52 68 58C68 64 52 64 52 58Z" fill="#F59E0B" />
@@ -138,7 +138,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
       actionType: 'internal',
       toolId: 'peeo-paymatrix',
       graphic: (
-        <svg viewBox="0 0 120 120" fill="none" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-md">
+        <svg viewBox="0 0 120 120" fill="none" className="w-10 h-10 sm:w-20 sm:h-20 drop-shadow-md">
           <rect x="22" y="22" width="76" height="76" rx="20" fill="url(#payGradApp)" />
           <rect x="34" y="34" width="52" height="18" rx="6" fill="#0F172A" />
           <text x="78" y="47" fill="#4ADE80" fontSize="11" fontFamily="sans-serif" fontWeight="900" textAnchor="end">₹ 78,500</text>
@@ -187,7 +187,7 @@ export const TopPromoBanner: React.FC<TopPromoBannerProps> = ({ lang, onNavigate
   const activeCard = promoCards[currentIndex];
 
   return (
-    <div className="w-full my-2 px-3 sm:px-4 max-w-md md:max-w-5xl lg:max-w-6xl mx-auto">
+    <div className="w-full mt-0 mb-2 px-3 sm:px-4 max-w-md md:max-w-5xl lg:max-w-6xl mx-auto">
       
       {/* UNIFORM APP-BACKGROUND BANNER CARD CONTAINER */}
       <div 

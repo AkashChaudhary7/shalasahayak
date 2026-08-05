@@ -3,6 +3,7 @@ import { SchoolProfile, MDMLog, TransportStudent, ScholarshipRecord, Language, T
 import { ThreeDIcon, ThreeDCard } from '../ThreeDIcon';
 import { BoardExamRemunerationBill } from '../incharge/BoardExamRemunerationBill';
 import { LadoInchargeModule } from '../incharge/LadoInchargeModule';
+import { TransportInchargeModule } from '../incharge/TransportInchargeModule';
 import { MdmInchargeModule } from './MdmInchargeModule';
 import { ExamInchargeModule } from './ExamInchargeModule';
 import { QrCodeGeneratorModule } from './QrCodeGeneratorModule';
@@ -44,7 +45,7 @@ interface WorkInchargeModuleProps {
   onUpdateMdmLogs: (logs: MDMLog[]) => void;
   lang: Language;
   initialSubTab?: 'mdm' | 'transport' | 'lado' | 'scholarship' | 'elc' | 'exam' | 'resizer' | 'remuneration' | 'qrcode' | 'dutyroster' | 'assembly' | null;
-  onNavigate?: (type: 'dashboard' | 'peeo' | 'teacher' | 'incharge' | 'quick' | 'shivira' | 'mdm' | 'exam' | 'work-incharge', subTab?: string | null) => void;
+  onNavigate?: (newNav: any) => void;
   onBack?: () => void;
 }
 
@@ -63,6 +64,15 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
   React.useEffect(() => {
     setActiveSubTab(initialSubTab);
   }, [initialSubTab]);
+
+  const handleSubTabChange = (subTab: typeof activeSubTab) => {
+    setActiveSubTab(subTab);
+    if (subTab) {
+      onNavigate?.({ type: 'tool', category: 'incharge', subtab: subTab });
+    } else {
+      onNavigate?.({ type: 'category', id: 'incharge' });
+    }
+  };
 
   React.useEffect(() => {
     if (activeSubTab) {
@@ -92,28 +102,40 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
   }, [activeSubTab]);
 
   // --- ELC Incharge State ---
-  const [elcCampaigns, setElcCampaigns] = useState([
-    { id: 'elc-1', title: 'National Voters Day Rally & Pledge', date: '2026-01-25', type: 'Rally', participants: 120, description: 'Voters registration drive and citizen awareness march with placards.' },
-    { id: 'elc-2', title: 'Mock Poll and EVM/VVPAT Demonstration', date: '2026-03-10', type: 'Mock Poll', participants: 85, description: 'Hands-on practice voting for senior secondary students on voting mechanics.' },
-    { id: 'elc-3', title: 'Electoral Rights Quiz Competition', date: '2026-04-18', type: 'Quiz', participants: 45, description: 'Inter-house quiz testing knowledge of the Indian Constitution and democracy.' }
-  ]);
-  const [elcVotes, setElcVotes] = useState<Record<string, number>>({
-    'Candidate Alpha': 42,
-    'Candidate Beta': 35,
-    'NOTA': 8
+  const [elcCampaigns, setElcCampaigns] = useState(() => {
+    const cached = localStorage.getItem('shala_elc_campaigns');
+    return cached ? JSON.parse(cached) : [
+      { id: 'elc-1', title: 'National Voters Day Rally & Pledge', date: '2026-01-25', type: 'Rally', participants: 120, description: 'Voters registration drive and citizen awareness march with placards.' },
+      { id: 'elc-2', title: 'Mock Poll and EVM/VVPAT Demonstration', date: '2026-03-10', type: 'Mock Poll', participants: 85, description: 'Hands-on practice voting for senior secondary students on voting mechanics.' },
+      { id: 'elc-3', title: 'Electoral Rights Quiz Competition', date: '2026-04-18', type: 'Quiz', participants: 45, description: 'Inter-house quiz testing knowledge of the Indian Constitution and democracy.' }
+    ];
   });
+  
+  const [elcVotes, setElcVotes] = useState<Record<string, number>>(() => {
+    const cached = localStorage.getItem('shala_elc_votes');
+    return cached ? JSON.parse(cached) : {
+      'Candidate Alpha': 42,
+      'Candidate Beta': 35,
+      'NOTA': 8
+    };
+  });
+
   const [newCampaignTitle, setNewCampaignTitle] = useState('');
   const [newCampaignType, setNewCampaignType] = useState('Rally');
   const [newCampaignParticipants, setNewCampaignParticipants] = useState('50');
   const [newCampaignDesc, setNewCampaignDesc] = useState('');
 
   // --- Scholarship Incharge State ---
-  const [scholarshipApplicants, setScholarshipApplicants] = useState([
-    { id: 'sch-1', name: 'Mamta Meena', className: 'Class 10', scheme: 'Pre-Matric ST Scholarship', category: 'ST', incomeVerified: true, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: true, status: 'Approved' },
-    { id: 'sch-2', name: 'Deepak Kumar Jat', className: 'Class 9', scheme: 'Pre-Matric OBC Scholarship', category: 'OBC', incomeVerified: true, casteVerified: true, janAadhaarMapped: false, shalaDarpanUploaded: false, status: 'Pending' },
-    { id: 'sch-3', name: 'Vikram Harijan', className: 'Class 8', scheme: 'Pre-Matric SC Scholarship', category: 'SC', incomeVerified: false, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: false, status: 'Action Required' },
-    { id: 'sch-4', name: 'Suman Kanwar', className: 'Class 10', scheme: 'EWS Scholarship', category: 'EWS', incomeVerified: true, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: true, status: 'Approved' }
-  ]);
+  const [scholarshipApplicants, setScholarshipApplicants] = useState(() => {
+    const cached = localStorage.getItem('shala_scholarship_applicants');
+    return cached ? JSON.parse(cached) : [
+      { id: 'sch-1', name: 'Mamta Meena', className: 'Class 10', scheme: 'Pre-Matric ST Scholarship', category: 'ST', incomeVerified: true, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: true, status: 'Approved' },
+      { id: 'sch-2', name: 'Deepak Kumar Jat', className: 'Class 9', scheme: 'Pre-Matric OBC Scholarship', category: 'OBC', incomeVerified: true, casteVerified: true, janAadhaarMapped: false, shalaDarpanUploaded: false, status: 'Pending' },
+      { id: 'sch-3', name: 'Vikram Harijan', className: 'Class 8', scheme: 'Pre-Matric SC Scholarship', category: 'SC', incomeVerified: false, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: false, status: 'Action Required' },
+      { id: 'sch-4', name: 'Suman Kanwar', className: 'Class 10', scheme: 'EWS Scholarship', category: 'EWS', incomeVerified: true, casteVerified: true, janAadhaarMapped: true, shalaDarpanUploaded: true, status: 'Approved' }
+    ];
+  });
+
   const [schSearch, setSchSearch] = useState('');
   const [schFilter, setSchFilter] = useState('All');
   const [newSchName, setNewSchName] = useState('');
@@ -121,78 +143,18 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
   const [newSchScheme, setNewSchScheme] = useState('Pre-Matric OBC Scholarship');
   const [newSchCategory, setNewSchCategory] = useState('OBC');
 
-  // --- Lado Incharge State ---
-  const [ladoStock, setLadoStock] = useState(1150);
-  const [ladoNapkinAdd, setLadoNapkinAdd] = useState('');
-  const [ladoDistributionLogs, setLadoDistributionLogs] = useState([
-    { id: 'ld-1', date: '2026-03-05', className: 'Class 6 Girls', quantity: 80, remarks: 'Monthly distribution' },
-    { id: 'ld-2', date: '2026-03-05', className: 'Class 7 Girls', quantity: 95, remarks: 'Monthly distribution' },
-    { id: 'ld-3', date: '2026-03-06', className: 'Class 8 Girls', quantity: 110, remarks: 'Monthly distribution with hygiene briefing' }
-  ]);
-  const [ladoDistClass, setLadoDistClass] = useState('Class 6 Girls');
-  const [ladoDistQty, setLadoDistQty] = useState('50');
-  const [ladoDistRemarks, setLadoDistRemarks] = useState('Monthly distribution');
+  // Sync state to local storage via useEffect to prevent stale cache memory
+  React.useEffect(() => {
+    localStorage.setItem('shala_elc_campaigns', JSON.stringify(elcCampaigns));
+  }, [elcCampaigns]);
 
-  const [ladoEvents, setLadoEvents] = useState([
-    { id: 'le-1', title: 'Girl Child Self-Defense Training (Rani Laxmibai)', date: '2026-01-18', participants: 92, instructor: 'Smt. Saroj Yadav' },
-    { id: 'le-2', title: 'Personal Hygiene & Reproductive Health Camp', date: '2026-02-12', participants: 115, instructor: 'Dr. Anita Meena (CHC)' }
-  ]);
-  const [ladoCounsels, setLadoCounsels] = useState([
-    { id: 'lc-1', date: '2026-03-12', topic: 'Academic Stress Counseling', participants: '8 Girls', status: 'Resolved' },
-    { id: 'lc-2', date: '2026-03-22', topic: 'Health & Dietary Guidance', participants: '12 Girls', status: 'In Progress' }
-  ]);
+  React.useEffect(() => {
+    localStorage.setItem('shala_elc_votes', JSON.stringify(elcVotes));
+  }, [elcVotes]);
 
-  // --- Lado Dropout Tracker State ---
-  const [ladoDropouts, setLadoDropouts] = useState([
-    {
-      id: 'do-1',
-      studentName: 'Priya Meena',
-      className: 'Class 9',
-      daysAbsent: 14,
-      reasonForRisk: 'Distance & Lack of Transport',
-      status: 'Counseling Done', // 'Identified' | 'Contacted Parent' | 'Counseling Done' | 'Re-enrolled' | 'Dropped Out'
-      followUps: [
-        { id: 'fu-1-1', date: '2026-03-08', details: 'Home visit conducted by ELC & Lado team. Parents raised concern about safe transport.', officer: 'Smt. Saroj Yadav' },
-        { id: 'fu-1-2', date: '2026-03-15', details: 'Offered transport voucher scheme option and mapped student. Parents agreed to resume school.', officer: 'Smt. Saroj Yadav' }
-      ]
-    },
-    {
-      id: 'do-2',
-      studentName: 'Komal Kanwar',
-      className: 'Class 10',
-      daysAbsent: 21,
-      reasonForRisk: 'Household chores & Caregiving',
-      status: 'Contacted Parent',
-      followUps: [
-        { id: 'fu-2-1', date: '2026-03-10', details: 'Called parents on phone. Mother was unwell, student was cooking. Planned home visit for counseling.', officer: 'Dr. Anita Meena' }
-      ]
-    },
-    {
-      id: 'do-3',
-      studentName: 'Aarti Harijan',
-      className: 'Class 8',
-      daysAbsent: 18,
-      reasonForRisk: 'Financial difficulties & Uniform cost',
-      status: 'Re-enrolled',
-      followUps: [
-        { id: 'fu-3-1', date: '2026-03-05', details: 'Discussed scholarship options (Pre-Matric SC). Helped register Jan Aadhaar.', officer: 'Smt. Saroj Yadav' },
-        { id: 'fu-3-2', date: '2026-03-12', details: 'Student received uniform books and returned to school. Attendance is now regular.', officer: 'Smt. Saroj Yadav' }
-      ]
-    }
-  ]);
-
-  // Form states for adding student
-  const [newDoName, setNewDoName] = useState('');
-  const [newDoClass, setNewDoClass] = useState('Class 9');
-  const [newDoDaysAbsent, setNewDoDaysAbsent] = useState('');
-  const [newDoReason, setNewDoReason] = useState('Distance & Lack of Transport');
-  const [newDoStatus, setNewDoStatus] = useState('Identified');
-
-  // Form states for adding follow-up to a student
-  const [selectedDoId, setSelectedDoId] = useState<string | null>(null);
-  const [newFuDetails, setNewFuDetails] = useState('');
-  const [newFuOfficer, setNewFuOfficer] = useState('');
-  const [newFuStatusUpdate, setNewFuStatusUpdate] = useState('Counseling Done');
+  React.useEffect(() => {
+    localStorage.setItem('shala_scholarship_applicants', JSON.stringify(scholarshipApplicants));
+  }, [scholarshipApplicants]);
 
   if (activeSubTab === null) {
     const modules = [
@@ -305,7 +267,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
           {modules.map((m) => (
             <ThreeDCard
               key={m.id}
-              onClick={() => setActiveSubTab(m.id)}
+              onClick={() => handleSubTabChange(m.id)}
               icon={m.iconName}
               label={lang === 'hi' ? m.titleHi : m.titleEn}
             />
@@ -324,7 +286,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
           schoolProfile={schoolProfile}
           teachers={teachers}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
@@ -333,7 +295,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
         <AssemblyInchargeModule
           schoolProfile={schoolProfile}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
@@ -342,7 +304,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
         <QrCodeGeneratorModule
           schoolProfile={schoolProfile}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
@@ -354,7 +316,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
           mdmLogs={mdmLogs}
           onUpdateMdmLogs={onUpdateMdmLogs}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
@@ -373,7 +335,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
               </p>
             </div>
             <button
-              onClick={() => setActiveSubTab(null)}
+              onClick={() => handleSubTabChange(null)}
               className="p-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-950/30 text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-400 border border-slate-200 dark:border-slate-800 transition-colors shrink-0 flex items-center gap-1 text-xs"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -542,7 +504,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
           schoolProfile={schoolProfile}
           teachers={teachers}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
@@ -561,7 +523,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
               </p>
             </div>
             <button
-              onClick={() => setActiveSubTab(null)}
+              onClick={() => handleSubTabChange(null)}
               className="p-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-950/30 text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-400 border border-slate-200 dark:border-slate-800 transition-colors shrink-0 flex items-center gap-1 text-xs"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -782,538 +744,8 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
         <LadoInchargeModule
           schoolProfile={schoolProfile}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
-      )}
-
-      {/* 5. LADO INCHARGE MODULE (OLD DETACHED) */}
-      {activeSubTab === 'lado_old' && (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-lg border border-slate-200 dark:border-slate-800 space-y-5 animate-fadeIn">
-          {/* Header */}
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 gap-3">
-            <div>
-              <h3 className="font-extrabold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-emerald-600" />
-                <span>{lang === 'hi' ? 'लाडो / बालिका संबल प्रभारी डैशबोर्ड' : 'Lado Scheme & Girls Welfare Portal'}</span>
-              </h3>
-              <p className="text-xs text-slate-500">
-                {lang === 'hi' ? 'मासिक सैनिटरी नैपकिन स्टॉक बही, रानी लक्ष्मीबाई आत्मरक्षा प्रशिक्षण व बालिका परामर्श लॉग' : 'Manage monthly sanitary napkin inventory, Rani Laxmibai self-defense & girl wellness'}
-              </p>
-            </div>
-            <button
-              onClick={() => setActiveSubTab(null)}
-              className="p-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-950/30 text-slate-500 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-400 border border-slate-200 dark:border-slate-800 transition-colors shrink-0 flex items-center gap-1 text-xs"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-            {/* Napkins Stock Left Block */}
-            <div className="md:col-span-5 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1">
-                  <Package className="w-4 h-4 text-emerald-600" />
-                  <span>Napkin Inventory Ledger</span>
-                </span>
-                <span className="text-[10px] text-slate-400 font-mono">Current Stock</span>
-              </div>
-
-              {/* Stock Indicator */}
-              <div className="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 text-center space-y-1">
-                <span className="block text-2xl font-black text-emerald-700 dark:text-emerald-400">{ladoStock} pcs</span>
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider">Available Sanitary Napkins</span>
-              </div>
-
-              {/* Inventory low alert */}
-              {ladoStock < 400 && (
-                <div className="p-2.5 bg-rose-50 dark:bg-rose-950/20 text-[10px] text-rose-700 dark:text-rose-400 rounded-lg border border-rose-200/50 dark:border-rose-900/30 leading-snug">
-                  ⚠️ <strong>Stock Warning:</strong> Inventory levels are below the required reserve threshold. Please submit a napkin requisition request on Shala Darpan.
-                </div>
-              )}
-
-              {/* Distribution & Add Stock Forms */}
-              <div className="space-y-3.5 border-t border-slate-200 dark:border-slate-700 pt-3 text-xs">
-                {/* Add Stock */}
-                <div className="space-y-1.5">
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 font-bold">Add Stock Receipts (Qty)</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      placeholder="Add napkin count"
-                      value={ladoNapkinAdd}
-                      onChange={e => setLadoNapkinAdd(e.target.value)}
-                      className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs flex-1"
-                    />
-                    <button
-                      onClick={() => {
-                        const count = Number(ladoNapkinAdd);
-                        if (!count || count <= 0) return;
-                        setLadoStock(prev => prev + count);
-                        setLadoNapkinAdd('');
-                      }}
-                      className="px-3 bg-emerald-800 hover:bg-emerald-900 text-white font-bold rounded text-xs transition-colors"
-                    >
-                      Receive
-                    </button>
-                  </div>
-                </div>
-
-                {/* Distribute Stock */}
-                <div className="space-y-1.5 border-t border-slate-200 dark:border-slate-700 pt-2.5">
-                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 font-bold">Distribute to Class Girls</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <select
-                      value={ladoDistClass}
-                      onChange={e => setLadoDistClass(e.target.value)}
-                      className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs w-full"
-                    >
-                      <option value="Class 6 Girls">Class 6 Girls</option>
-                      <option value="Class 7 Girls">Class 7 Girls</option>
-                      <option value="Class 8 Girls">Class 8 Girls</option>
-                      <option value="Class 9 Girls">Class 9 Girls</option>
-                      <option value="Class 10 Girls">Class 10 Girls</option>
-                      <option value="Class 11 Girls">Class 11 Girls</option>
-                      <option value="Class 12 Girls">Class 12 Girls</option>
-                    </select>
-                    <input
-                      type="number"
-                      placeholder="Quantity"
-                      value={ladoDistQty}
-                      onChange={e => setLadoDistQty(e.target.value)}
-                      className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs w-full"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Distribution remarks/notes"
-                    value={ladoDistRemarks}
-                    onChange={e => setLadoDistRemarks(e.target.value)}
-                    className="p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs w-full"
-                  />
-                  <button
-                    onClick={() => {
-                      const qty = Number(ladoDistQty);
-                      if (!qty || qty <= 0 || ladoStock < qty) return;
-                      setLadoStock(prev => prev - qty);
-                      setLadoDistributionLogs(prev => [
-                        {
-                          id: `ld-${Date.now()}`,
-                          date: new Date().toISOString().split('T')[0],
-                          className: ladoDistClass,
-                          quantity: qty,
-                          remarks: ladoDistRemarks || 'Monthly distribution'
-                        },
-                        ...prev
-                      ]);
-                      setLadoDistRemarks('Monthly distribution');
-                    }}
-                    className="w-full py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded font-bold text-xs transition-colors"
-                  >
-                    Confirm & Record Distribution
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column Self-defense logs and distribution diary */}
-            <div className="md:col-span-7 space-y-4 text-xs">
-              <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-emerald-600" />
-                <span>Empowerment Events & Distribution Diary</span>
-              </h4>
-
-              {/* Navigation/Toggle Sub-panels within Lado */}
-              <div className="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg grid grid-cols-2 gap-1 text-center font-bold text-[11px]">
-                <span className="p-1.5 bg-white dark:bg-slate-950 text-emerald-800 dark:text-emerald-300 rounded shadow-sm">
-                  Ledger Logs
-                </span>
-                <span className="p-1.5 text-slate-500">
-                  Rani Laxmibai Training & Support
-                </span>
-              </div>
-
-              {/* List of Ledger transactions */}
-              <div className="space-y-2 max-h-[140px] overflow-y-auto pr-1">
-                {ladoDistributionLogs.map((log) => (
-                  <div key={log.id} className="p-2.5 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200/60 dark:border-slate-800/50 flex justify-between items-center text-xs">
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-800 dark:text-slate-100">{log.className}</span>
-                        <span className="font-bold text-emerald-800 dark:text-emerald-400 font-mono">{log.quantity} distributed</span>
-                      </div>
-                      <p className="text-[10px] text-slate-400">Date: {log.date} | Note: {log.remarks}</p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        setLadoStock(prev => prev + log.quantity);
-                        setLadoDistributionLogs(prev => prev.filter(item => item.id !== log.id));
-                      }}
-                      className="p-1 rounded text-slate-400 hover:text-red-500 transition-colors shrink-0"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              {/* Self Defense Activity Logs */}
-              <div className="p-3 bg-slate-50 dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2.5">
-                <span className="font-bold text-[11px] text-slate-600 dark:text-slate-300 block uppercase tracking-wider">
-                  🔒 Rani Laxmibai Self-Defense Events log
-                </span>
-                <div className="space-y-2 max-h-[120px] overflow-y-auto">
-                  {ladoEvents.map(e => (
-                    <div key={e.id} className="p-2 bg-white dark:bg-slate-900 rounded border border-slate-200 text-[11px] space-y-0.5">
-                      <div className="flex justify-between font-bold text-slate-800 dark:text-slate-200">
-                        <span>{e.title}</span>
-                        <span className="text-emerald-700 dark:text-emerald-400 font-mono">{e.participants} girls</span>
-                      </div>
-                      <p className="text-[10px] text-slate-500">Date: {e.date} | Coach: {e.instructor}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* --- Dropout Prevention and Intervention Follow-up History Tracker --- */}
-          <div className="border-t border-slate-200 dark:border-slate-800 pt-5 mt-5 space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
-              <div>
-                <h4 className="font-extrabold text-sm text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                  <UserCheck className="w-4 h-4 text-rose-600" />
-                  <span>
-                    {lang === 'hi' ? 'बालिका स्कूल ड्रॉपआउट रोकथाम एवं गृह संपर्क लॉग' : 'Girls Dropout Prevention & Follow-up History Tracker'}
-                  </span>
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  {lang === 'hi' ? 'लगातार अनुपस्थित छात्राओं की सूची, अभिभावक संपर्क, परामर्श और शाला वापसी ट्रैकिंग' : 'Track and counsel girls at risk of dropping out, log home visits and register school-return status'}
-                </p>
-              </div>
-
-              {/* Status Counters */}
-              <div className="flex flex-wrap gap-2 text-[10px] font-bold">
-                <span className="px-2 py-1 rounded bg-amber-50 dark:bg-amber-950/20 text-amber-800 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/30 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                  {lang === 'hi' ? 'सक्रिय मामले' : 'Active Cases'}: {ladoDropouts.filter(d => d.status !== 'Re-enrolled' && d.status !== 'Dropped Out').length}
-                </span>
-                <span className="px-2 py-1 rounded bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/30 flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                  {lang === 'hi' ? 'पुनः नामांकित (सुरक्षित)' : 'Re-enrolled (Saved)'}: {ladoDropouts.filter(d => d.status === 'Re-enrolled').length}
-                </span>
-                <span className="px-2 py-1 rounded bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center gap-1">
-                  Total: {ladoDropouts.length}
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-              {/* Add Student Form */}
-              <div className="lg:col-span-4 bg-slate-50 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3.5 text-xs">
-                <span className="font-bold text-[11px] text-slate-700 dark:text-slate-300 uppercase tracking-wider block border-b border-slate-200 dark:border-slate-700 pb-1.5 font-sans">
-                  {lang === 'hi' ? '➕ नया ड्रॉपआउट केस दर्ज करें' : '➕ Register At-Risk Student'}
-                </span>
-                
-                <div className="space-y-2.5">
-                  <div>
-                    <label className="block text-[10px] text-slate-500 font-semibold mb-1">{lang === 'hi' ? 'छात्रा का नाम' : 'Student Name'}</label>
-                    <input
-                      type="text"
-                      placeholder={lang === 'hi' ? 'छात्रा का पूरा नाम दर्ज करें' : 'Enter student full name'}
-                      value={newDoName}
-                      onChange={e => setNewDoName(e.target.value)}
-                      className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-1 focus:ring-emerald-500 outline-none"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="block text-[10px] text-slate-500 font-semibold mb-1">{lang === 'hi' ? 'कक्षा' : 'Class'}</label>
-                      <select
-                        value={newDoClass}
-                        onChange={e => setNewDoClass(e.target.value)}
-                        className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
-                      >
-                        <option value="Class 6">Class 6</option>
-                        <option value="Class 7">Class 7</option>
-                        <option value="Class 8">Class 8</option>
-                        <option value="Class 9">Class 9</option>
-                        <option value="Class 10">Class 10</option>
-                        <option value="Class 11">Class 11</option>
-                        <option value="Class 12">Class 12</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-[10px] text-slate-500 font-semibold mb-1">{lang === 'hi' ? 'अनुपस्थिति (दिन)' : 'Absent Days'}</label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 15"
-                        value={newDoDaysAbsent}
-                        onChange={e => setNewDoDaysAbsent(e.target.value)}
-                        className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-1 focus:ring-emerald-500 outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[10px] text-slate-500 font-semibold mb-1">{lang === 'hi' ? 'ड्रॉपआउट जोखिम का मुख्य कारण' : 'Primary Risk Factor'}</label>
-                    <select
-                      value={newDoReason}
-                      onChange={e => setNewDoReason(e.target.value)}
-                      className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
-                    >
-                      <option value="Distance & Lack of Transport">{lang === 'hi' ? 'दूरी व सुरक्षित परिवहन का अभाव' : 'Distance & Lack of Safe Transport'}</option>
-                      <option value="Household chores & Caregiving">{lang === 'hi' ? 'घरेलू काम व छोटे भाई-बहनों की देखरेख' : 'Household chores & Caregiving'}</option>
-                      <option value="Financial difficulties & Uniform cost">{lang === 'hi' ? 'आर्थिक तंगी व स्कूल खर्च' : 'Financial difficulties & School cost'}</option>
-                      <option value="Early marriage risk / engagement">{lang === 'hi' ? 'कम उम्र में विवाह / सगाई दबाव' : 'Early marriage risk / social pressure'}</option>
-                      <option value="Academic underperformance / fear">{lang === 'hi' ? 'पढ़ाई में अरुचि या परीक्षा का डर' : 'Academic fear / low interest'}</option>
-                      <option value="Health or personal issues">{lang === 'hi' ? 'स्वास्थ्य अथवा व्यक्तिगत कारण' : 'Health or personal issues'}</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-[10px] text-slate-500 font-semibold mb-1">{lang === 'hi' ? 'प्रारंभिक स्थिति' : 'Initial Status'}</label>
-                    <select
-                      value={newDoStatus}
-                      onChange={e => setNewDoStatus(e.target.value)}
-                      className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
-                    >
-                      <option value="Identified">{lang === 'hi' ? 'चिह्नित (Identified)' : 'Identified'}</option>
-                      <option value="Contacted Parent">{lang === 'hi' ? 'अभिभावक से संपर्क (Contacted)' : 'Contacted Parent'}</option>
-                      <option value="Counseling Done">{lang === 'hi' ? 'परामर्श पूर्ण (Counseling Done)' : 'Counseling Done'}</option>
-                      <option value="Re-enrolled">{lang === 'hi' ? 'पुनः नामांकित (Re-enrolled)' : 'Re-enrolled'}</option>
-                    </select>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      if (!newDoName.trim()) return;
-                      const days = Number(newDoDaysAbsent) || 10;
-                      setLadoDropouts(prev => [
-                        ...prev,
-                        {
-                          id: `do-${Date.now()}`,
-                          studentName: newDoName,
-                          className: newDoClass,
-                          daysAbsent: days,
-                          reasonForRisk: newDoReason,
-                          status: newDoStatus,
-                          followUps: []
-                        }
-                      ]);
-                      setNewDoName('');
-                      setNewDoDaysAbsent('');
-                    }}
-                    className="w-full py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>{lang === 'hi' ? 'केस सहेजें' : 'Save & Track Candidate'}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Student dropout tracking table / list */}
-              <div className="lg:col-span-8 space-y-2.5">
-                <span className="font-bold text-[11px] text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                  {lang === 'hi' ? '📋 निगरानी सूची एवं हस्तक्षेप इतिहास' : '📋 Monitoring Roster & Intervention History'}
-                </span>
-
-                <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                  {ladoDropouts.length === 0 ? (
-                    <div className="p-8 text-center bg-slate-50 dark:bg-slate-800/20 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-slate-400">
-                      {lang === 'hi' ? 'कोई सक्रिय ड्रॉपआउट रोकथाम मामला नहीं है।' : 'No active dropout prevention cases currently tracked.'}
-                    </div>
-                  ) : (
-                    ladoDropouts.map((d) => {
-                      const isExpanded = selectedDoId === d.id;
-                      
-                      // Status Badge coloring helper
-                      let statusBadgeClass = 'bg-slate-100 text-slate-700';
-                      if (d.status === 'Identified') statusBadgeClass = 'bg-amber-100 text-amber-800 dark:bg-amber-950/30 dark:text-amber-400 border border-amber-200/40';
-                      if (d.status === 'Contacted Parent') statusBadgeClass = 'bg-blue-100 text-blue-800 dark:bg-blue-950/30 dark:text-blue-400 border border-blue-200/40';
-                      if (d.status === 'Counseling Done') statusBadgeClass = 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/30 dark:text-indigo-400 border border-indigo-200/40';
-                      if (d.status === 'Re-enrolled') statusBadgeClass = 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/40';
-                      if (d.status === 'Dropped Out') statusBadgeClass = 'bg-rose-100 text-rose-800 dark:bg-rose-950/30 dark:text-rose-400 border border-rose-200/40';
-
-                      return (
-                        <div
-                          key={d.id}
-                          className="p-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-3 shadow-sm hover:shadow-md transition-shadow"
-                        >
-                          {/* Row Header */}
-                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
-                            <div className="space-y-1">
-                              <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-extrabold text-sm text-slate-800 dark:text-slate-100">{d.studentName}</span>
-                                <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded text-[10px] font-mono font-bold">
-                                  {d.className}
-                                </span>
-                                <span className="px-1.5 py-0.5 bg-rose-50 dark:bg-rose-950/20 text-rose-700 dark:text-rose-400 rounded text-[10px] font-mono">
-                                  {d.daysAbsent} {lang === 'hi' ? 'दिन अनुपस्थित' : 'Days Absent'}
-                                </span>
-                              </div>
-                              <p className="text-[10px] text-slate-500 font-medium flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-                                {lang === 'hi' ? 'जोखिम कारण' : 'Risk'}: {d.reasonForRisk}
-                              </p>
-                            </div>
-
-                            {/* Status & Actions */}
-                            <div className="flex items-center gap-2 self-start md:self-center">
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${statusBadgeClass}`}>
-                                {d.status === 'Identified' && (lang === 'hi' ? 'चिह्नित' : 'Identified')}
-                                {d.status === 'Contacted Parent' && (lang === 'hi' ? 'अभिभावक संपर्क' : 'Contacted Parent')}
-                                {d.status === 'Counseling Done' && (lang === 'hi' ? 'परामर्श पूर्ण' : 'Counseling Done')}
-                                {d.status === 'Re-enrolled' && (lang === 'hi' ? 'पुनः नामांकित' : 'Re-enrolled')}
-                                {d.status === 'Dropped Out' && (lang === 'hi' ? 'ड्रॉपआउट' : 'Dropped Out')}
-                              </span>
-
-                              <button
-                                onClick={() => {
-                                  if (isExpanded) {
-                                    setSelectedDoId(null);
-                                  } else {
-                                    setSelectedDoId(d.id);
-                                    setNewFuStatusUpdate(d.status);
-                                  }
-                                }}
-                                className={`px-2.5 py-1 rounded text-[10px] font-bold border transition-colors flex items-center gap-1 ${
-                                  isExpanded
-                                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300 dark:bg-emerald-950/30'
-                                    : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
-                                }`}
-                              >
-                                <Activity className="w-3 h-3" />
-                                <span>
-                                  {lang === 'hi' ? 'हस्तक्षेप' : 'Follow-ups'} ({d.followUps.length})
-                                </span>
-                              </button>
-
-                              <button
-                                onClick={() => {
-                                  setLadoDropouts(prev => prev.filter(item => item.id !== d.id));
-                                  if (selectedDoId === d.id) setSelectedDoId(null);
-                                }}
-                                className="p-1 rounded text-slate-400 hover:text-red-500 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-800"
-                                title="Remove case"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* Expanded follow-ups ledger section */}
-                          {isExpanded && (
-                            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3 bg-slate-50/50 dark:bg-slate-800/20 p-3 rounded-lg animate-fadeIn text-[11px]">
-                              {/* Past follow-ups list */}
-                              {d.followUps.length > 0 && (
-                                <div className="space-y-2 border-b border-slate-200/60 dark:border-slate-700 pb-3">
-                                  <span className="font-bold text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wider block">
-                                    {lang === 'hi' ? 'हस्तक्षेप इतिहास' : 'Intervention Log'}
-                                  </span>
-                                  <div className="space-y-2 max-h-[160px] overflow-y-auto">
-                                    {d.followUps.map((f) => (
-                                      <div key={f.id} className="p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded shadow-sm text-[11px]">
-                                        <div className="flex justify-between font-bold text-slate-700 dark:text-slate-300 mb-1 font-mono text-[10px]">
-                                          <span>By: {f.officer}</span>
-                                          <span>{f.date}</span>
-                                        </div>
-                                        <p className="text-slate-600 dark:text-slate-400 leading-normal">{f.details}</p>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* Form to log a new follow-up */}
-                              <div className="space-y-2.5">
-                                <span className="font-bold text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wider block">
-                                  {lang === 'hi' ? '📝 नया गृह संपर्क / हस्तक्षेप लॉग जोड़ें' : '📝 Log New Home Visit or Counseling'}
-                                </span>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                  <div>
-                                    <label className="block text-[9px] text-slate-500 font-semibold mb-0.5">{lang === 'hi' ? 'हस्तक्षेप करने वाला प्रभारी/अधिकारी' : 'Incharge Officer'}</label>
-                                    <input
-                                      type="text"
-                                      placeholder="e.g. Smt. Saroj Yadav"
-                                      value={newFuOfficer}
-                                      onChange={e => setNewFuOfficer(e.target.value)}
-                                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-[11px]"
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="block text-[9px] text-slate-500 font-semibold mb-0.5">{lang === 'hi' ? 'स्थिति अद्यतन (Status Update)' : 'Update Status to'}</label>
-                                    <select
-                                      value={newFuStatusUpdate}
-                                      onChange={e => setNewFuStatusUpdate(e.target.value)}
-                                      className="w-full p-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-[11px]"
-                                    >
-                                      <option value="Identified">{lang === 'hi' ? 'चिह्नित (Identified)' : 'Identified'}</option>
-                                      <option value="Contacted Parent">{lang === 'hi' ? 'अभिभावक संपर्क (Contacted Parent)' : 'Contacted Parent'}</option>
-                                      <option value="Counseling Done">{lang === 'hi' ? 'परामर्श पूर्ण (Counseling Done)' : 'Counseling Done'}</option>
-                                      <option value="Re-enrolled">{lang === 'hi' ? 'पुनः नामांकित (Re-enrolled)' : 'Re-enrolled'}</option>
-                                      <option value="Dropped Out">{lang === 'hi' ? 'ड्रॉपआउट (Dropped Out)' : 'Dropped Out'}</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                                <div>
-                                  <label className="block text-[9px] text-slate-500 font-semibold mb-0.5">{lang === 'hi' ? 'हस्तक्षेप का संक्षिप्त विवरण (गृह संपर्क रिपोर्ट, अभिभावक वार्तालाप)' : 'Intervention Details / Home Visit Summary'}</label>
-                                  <textarea
-                                    rows={2}
-                                    placeholder={lang === 'hi' ? 'जैसे: गृह संपर्क किया गया। माता-पिता से चर्चा हुई और वे बालिका को सोमवार से विद्यालय भेजने के लिए सहमत हुए।' : 'e.g. Visited family. Discussed importance of board exam. Arranged transport assist. Parents agreed.'}
-                                    value={newFuDetails}
-                                    onChange={e => setNewFuDetails(e.target.value)}
-                                    className="w-full p-2 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-[11px] outline-none resize-none"
-                                  />
-                                </div>
-
-                                <button
-                                  onClick={() => {
-                                    if (!newFuDetails.trim()) return;
-                                    const officerName = newFuOfficer.trim() || (lang === 'hi' ? 'श्रीमती सरोज यादव (Lado Incharge)' : 'Smt. Saroj Yadav (Lado Incharge)');
-                                    
-                                    setLadoDropouts(prev => prev.map(item => {
-                                      if (item.id === d.id) {
-                                        return {
-                                          ...item,
-                                          status: newFuStatusUpdate,
-                                          followUps: [
-                                            ...item.followUps,
-                                            {
-                                              id: `fu-${Date.now()}`,
-                                              date: new Date().toISOString().split('T')[0],
-                                              details: newFuDetails,
-                                              officer: officerName
-                                            }
-                                          ]
-                                        };
-                                      }
-                                      return item;
-                                    }));
-                                    
-                                    setNewFuDetails('');
-                                    setNewFuOfficer('');
-                                  }}
-                                  className="w-full py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded font-bold font-mono text-[10px]"
-                                >
-                                  Save Follow-up Entry & Set Status
-                                </button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       )}
 
       {/* BOARD EXAM REMUNERATION BILL */}
@@ -1322,105 +754,17 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
           schoolProfile={schoolProfile}
           teachers={teachers}
           lang={lang}
-          onBack={() => setActiveSubTab(null)}
+          onBack={() => handleSubTabChange(null)}
         />
       )}
 
       {/* TRANSPORT VOUCHER INCHARGE MODULE */}
       {activeSubTab === 'transport' && (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-lg border border-slate-200 dark:border-slate-800 space-y-5 animate-fadeIn">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 gap-3">
-            <div>
-              <h3 className="font-extrabold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <Bus className="w-5 h-5 text-emerald-600" />
-                <span>{lang === 'hi' ? 'ट्रांसपोर्ट वाउचर छात्र मैपिंग एवं भत्ता क्लेम' : 'Transport Voucher Student Mapping & Claim'}</span>
-              </h3>
-              <p className="text-xs text-slate-500">
-                {lang === 'hi' ? 'ग्रामीण एवं दूरस्थ क्षेत्रों से आने वाले छात्र-छात्राओं का दूरी सत्यापन एवं परिवहन भत्ता बिल' : 'Rural distance verification & transport voucher claim generator (>1km primary / >2km upper primary)'}
-              </p>
-            </div>
-            <button
-              onClick={() => setActiveSubTab(null)}
-              className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 text-xs font-bold transition-colors flex items-center gap-1"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>{lang === 'hi' ? 'पीछे जाएँ' : 'Back'}</span>
-            </button>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 flex items-start gap-3 text-xs text-emerald-900 dark:text-emerald-200">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-            <div>
-              <div className="font-bold">{lang === 'hi' ? 'राजस्थान परिवहन भत्ता योजना नियम 2026' : 'Rajasthan Transport Allowance Policy 2026'}</div>
-              <p className="mt-0.5 text-slate-600 dark:text-slate-300">
-                {lang === 'hi'
-                  ? 'प्राथमिक कक्षाओं (1-5) के लिए 1 किमी तथा उच्च प्राथमिक/माध्यमिक (6-12) के लिए 2 किमी से अधिक दूरी पर स्थित निवास वाले छात्रों को प्रतिमाह रू 400 तक का परिवहन भत्ता स्वीकृत किया जाता है।'
-                  : 'Students residing >1 km (Primary 1-5) or >2 km (Upper Primary/Sec 6-12) from school are eligible for up to ₹400/month transport voucher reimbursement.'}
-              </p>
-            </div>
-          </div>
-
-          {/* Transport Student List Table */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h4 className="font-extrabold text-xs uppercase tracking-wider text-slate-500">{lang === 'hi' ? 'लाभान्वित छात्र सूची' : 'Eligible Student Roster'}</h4>
-              <button
-                onClick={() => {
-                  window.print();
-                }}
-                className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1 shadow-sm"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>{lang === 'hi' ? 'वाउचर प्रपत्र प्रिंट करें' : 'Print Voucher Claim'}</span>
-              </button>
-            </div>
-
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
-              <table className="w-full text-left border-collapse text-xs">
-                <thead>
-                  <tr className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-extrabold border-b border-slate-200 dark:border-slate-700">
-                    <th className="p-3">#</th>
-                    <th className="p-3">{lang === 'hi' ? 'छात्र / छात्रा का नाम' : 'Student Name'}</th>
-                    <th className="p-3">{lang === 'hi' ? 'कक्षा' : 'Class'}</th>
-                    <th className="p-3">{lang === 'hi' ? 'निवास दूरी (KM)' : 'Distance (KM)'}</th>
-                    <th className="p-3">{lang === 'hi' ? 'परिवहन साधन' : 'Transport Mode'}</th>
-                    <th className="p-3">{lang === 'hi' ? 'मासिक भत्ते की राशि' : 'Monthly Claim'}</th>
-                    <th className="p-3">{lang === 'hi' ? 'बैंक खाता एवं IFSC' : 'Bank Details'}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                    <td className="p-3 font-mono">1</td>
-                    <td className="p-3 font-bold">Ramesh Kumar Gurjar</td>
-                    <td className="p-3">Class 8</td>
-                    <td className="p-3 font-mono font-bold text-emerald-600">3.5 KM</td>
-                    <td className="p-3">Auto/Bus</td>
-                    <td className="p-3 font-mono font-bold text-amber-600">₹ 400 / mo</td>
-                    <td className="p-3 font-mono text-[11px]">39102910291 (SBIN0001234)</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                    <td className="p-3 font-mono">2</td>
-                    <td className="p-3 font-bold">Pooja Verma</td>
-                    <td className="p-3">Class 6</td>
-                    <td className="p-3 font-mono font-bold text-emerald-600">2.2 KM</td>
-                    <td className="p-3">Bicycle</td>
-                    <td className="p-3 font-mono font-bold text-amber-600">₹ 300 / mo</td>
-                    <td className="p-3 font-mono text-[11px]">50100293019 (HDFC0000123)</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                    <td className="p-3 font-mono">3</td>
-                    <td className="p-3 font-bold">Kavita Meena</td>
-                    <td className="p-3">Class 10</td>
-                    <td className="p-3 font-mono font-bold text-emerald-600">4.1 KM</td>
-                    <td className="p-3">Walk / Local</td>
-                    <td className="p-3 font-mono font-bold text-amber-600">₹ 400 / mo</td>
-                    <td className="p-3 font-mono text-[11px]">20391029301 (BARB0JAIPUR)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        <TransportInchargeModule
+          schoolProfile={schoolProfile}
+          lang={lang}
+          onBack={() => handleSubTabChange(null)}
+        />
       )}
 
       {/* SHALA DARPAN PHOTO & SIGNATURE RESIZER */}
@@ -1437,7 +781,7 @@ export const WorkInchargeModule: React.FC<WorkInchargeModuleProps> = ({
               </p>
             </div>
             <button
-              onClick={() => setActiveSubTab(null)}
+              onClick={() => handleSubTabChange(null)}
               className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 text-xs font-bold transition-colors flex items-center gap-1"
             >
               <ArrowLeft className="w-4 h-4" />

@@ -224,8 +224,8 @@ export const SchoolProfileModal: React.FC<SchoolProfileModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-emerald-500/20 flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 overflow-y-auto bg-black/60 backdrop-blur-sm animate-fadeIn pt-4 sm:pt-6 md:pt-10">
+      <div className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-emerald-500/20 flex flex-col my-4">
         
         {/* Modal Header */}
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-emerald-900 text-white rounded-t-3xl flex items-center justify-between shrink-0">

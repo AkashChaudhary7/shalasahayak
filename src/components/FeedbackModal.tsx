@@ -25,8 +25,8 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, l
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl max-w-md w-full p-4 shadow-2xl border border-emerald-500/20 space-y-3">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 overflow-y-auto bg-black/60 backdrop-blur-sm animate-fadeIn pt-10 sm:pt-16">
+      <div className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl max-w-md w-full p-4 shadow-2xl border border-emerald-500/20 space-y-3 my-4">
         
         <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center space-x-2">

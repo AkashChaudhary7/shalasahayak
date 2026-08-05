@@ -185,6 +185,16 @@ export const DEFAULT_INCHARGES: InchargeAssignment[] = [
     assignedTeacherName: "Sunita Choudhary",
     assignedTeacherDesignation: "Senior Teacher",
     orderDate: "2026-07-01"
+  },
+  {
+    id: "inc-6",
+    chargeName: "Transport Voucher Incharge",
+    chargeNameHindi: "परिवहन भत्ता / ट्रांसपोर्ट वाउचर प्रभारी",
+    category: "Welfare",
+    assignedTeacherId: "tch-4",
+    assignedTeacherName: "Mahesh Kumar Saini",
+    assignedTeacherDesignation: "Teacher Grade III",
+    orderDate: "2026-07-01"
   }
 ];
 
@@ -689,5 +699,24 @@ export const storage = {
   setAdminPin: (pin: string) => setItem(KEYS.ADMIN_PIN, pin),
 
   isAdminPinEnabled: () => getItem<boolean>(KEYS.ADMIN_PIN_ENABLED, false),
-  setAdminPinEnabled: (enabled: boolean) => setItem(KEYS.ADMIN_PIN_ENABLED, enabled)
+  setAdminPinEnabled: (enabled: boolean) => setItem(KEYS.ADMIN_PIN_ENABLED, enabled),
+
+  clearStaleData: () => {
+    try {
+      // Clear all shala_ keys
+      Object.values(KEYS).forEach(key => {
+        localStorage.removeItem(key);
+      });
+      // Clear standard caches
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => {
+            caches.delete(name);
+          });
+        });
+      }
+    } catch (e) {
+      console.error("Failed to clear stale data:", e);
+    }
+  }
 };
