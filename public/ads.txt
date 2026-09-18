@@ -1,0 +1,5 @@
+# Google AdSense ads.txt configuration for shalasahayak.in
+# INSTRUCTIONS: Replace the placeholder "pub-0000000000000000" with your actual Google AdSense Publisher ID
+# (which you can find in your Google AdSense account under Account -> Settings -> Account Information)
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
